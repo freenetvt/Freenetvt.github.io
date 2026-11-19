@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freenetvt | نسل جدید اینترنت آزاد</title>
-
+    <title>Freenetvt | دریافت کانفیگ هوشمند Sing-box</title>
+    
+    <!-- تنظیم رنگ نوار ابزار مرورگر و سیستم‌عامل دقیقاً همرنگ تم پنل (#0b0f19) -->
     <meta name="theme-color" content="#0b0f19">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="msapplication-navbutton-color" content="#0b0f19">
 
+    <!-- فونت وزیرمتن برای تایپوگرافی استاندارد و زیبای فارسی -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- آیکون‌های Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
@@ -47,6 +51,7 @@
             font-family: 'Vazirmatn', sans-serif;
             overflow-x: hidden;
         }
+        /* افکت شیشه‌ای (Glassmorphism) */
         .glass-card {
             background: rgba(17, 24, 39, 0.72);
             backdrop-filter: blur(16px);
@@ -64,11 +69,13 @@
             border-color: rgba(14, 165, 233, 0.35);
             transform: translateY(-2px);
         }
+        /* گرادینت متنی */
         .text-gradient {
             background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 50%, #818cf8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        /* اسکرول‌بار سفارشی */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -87,42 +94,40 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between relative selection:bg-sky-500/30 selection:text-sky-200">
 
-    <!-- نورهای پس‌زمینه -->
+    <!-- نورهای پس‌زمینه (Ambient Glow) -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
         <div class="absolute -top-32 -right-32 w-96 h-96 bg-sky-500/15 rounded-full blur-3xl animate-pulse-slow"></div>
         <div class="absolute top-1/3 -left-32 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
         <div class="absolute -bottom-32 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
     </div>
 
-    <!-- نوار ناوبری بالا -->
+    <!-- نوار ناوبری بالا (Navbar) -->
     <header class="w-full border-b border-white/5 bg-[#0b0f19]/80 backdrop-blur-md sticky top-0 z-40">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
-            <a href="index.html" class="flex items-center gap-3 group shrink-0">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <!-- لوگو و نام برند -->
+            <a href="index.html" class="flex items-center gap-3 group">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/25 group-hover:scale-105 transition-transform">
                     <i data-lucide="home" class="w-6 h-6 text-white"></i>
                 </div>
                 <div class="flex flex-col">
                     <div class="flex items-center gap-2">
-                        <span class="font-extrabold text-sm sm:text-lg tracking-wide text-white">Freenetvt</span>
+                        <span class="font-extrabold text-sm sm:text-lg tracking-wide text-white">ورود به صفحه اصلی</span>
                         <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-500/15 text-sky-400 border border-sky-500/30">PRO</span>
                     </div>
-                    <span class="text-[11px] text-slate-400">نسل جدید اینترنت آزاد</span>
+                    <span class="text-[11px] text-slate-400">Sing-box Smart Configs</span>
                 </div>
             </a>
 
-            <nav class="flex items-center gap-1.5 sm:gap-2">
-                <a href="singbox.html" class="text-xs font-semibold text-indigo-300 hover:text-white bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/30 px-3 py-2 rounded-xl transition-all flex items-center gap-1.5">
-                    <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
-                    <span>Sing-box</span>
-                </a>
-                <a href="xray.html" class="text-xs font-semibold text-emerald-300 hover:text-white bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 px-3 py-2 rounded-xl transition-all flex items-center gap-1.5">
-                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-                    <span>Xray</span>
-                </a>
-                <button onclick="openModal('guideModal')" class="text-xs sm:text-sm text-slate-300 hover:text-sky-400 px-2.5 py-2 rounded-xl hover:bg-white/5 transition-colors flex items-center gap-1.5">
+            <!-- لینک‌های سریع -->
+            <nav class="flex items-center gap-2 sm:gap-4">
+                <button onclick="openModal('guideModal')" class="text-xs sm:text-sm text-slate-300 hover:text-sky-400 px-3 py-2 rounded-xl hover:bg-white/5 transition-colors flex items-center gap-1.5">
                     <i data-lucide="book-open" class="w-4 h-4"></i>
-                    <span class="hidden md:inline">آموزش اتصال</span>
+                    <span class="hidden sm:inline">آموزش اتصال</span>
                 </button>
+                <a href="https://t.me/Freenetvt" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-medium bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/25 px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    <span>کانال تلگرام</span>
+                </a>
             </nav>
         </div>
     </header>
@@ -130,19 +135,23 @@
     <!-- محتوای اصلی -->
     <main class="flex-grow max-w-3xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8">
 
-        <!-- بخش هیرو -->
+        <!-- بخش هیرو (Hero Section) -->
         <section class="text-center space-y-4 p-6 sm:p-8 rounded-3xl bg-slate-900/40 border border-white/20 shadow-2xl relative overflow-hidden">
+            
+            <!-- عکس پروفایل کانال تلگرام به همراه نشانگر آنلاین سبز چشمک‌زن -->
             <div class="flex justify-center mb-4">
                 <div class="relative group">
                     <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-sky-400 to-indigo-600 blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-white overflow-hidden bg-slate-950 shadow-xl flex items-center justify-center">
                         <img src="https://t.me/i/userpic/320/Freenetvt.jpg" alt="Freenetvt Channel Profile" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150&auto=format&fit=crop&q=80'">
                     </div>
+                    <!-- نشانگر آنلاین چشمک‌زن سبز -->
                     <span class="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-slate-950 animate-ping"></span>
                     <span class="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-slate-950"></span>
                 </div>
             </div>
 
+            <!-- وضعیت اتصال -->
             <div class="flex justify-center">
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/25 text-sky-400 text-xs font-semibold shadow-sm">
                     <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
@@ -151,48 +160,20 @@
             </div>
 
             <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-white leading-snug">
-                نسل جدید اینترنت آزاد
-                <span class="text-gradient block sm:inline mt-1 sm:mt-0">Freenetvt</span>
+                نسل جدید کانفیگ‌های هوشمند
+                <span class="text-gradient block sm:inline mt-1 sm:mt-0">Sing-box</span>
             </h1>
 
             <p class="text-sm sm:text-base text-slate-400 max-w-xl mx-auto leading-relaxed">
-                دروازه ورود به پنل‌های تخصصی Sing-box و V2ray / Xray با قابلیت دریافت اشتراک هوشمند، تست پینگ و مسیریابی بهینه
+                دریافت رایگان و آنی اشتراک هوشمند با قابلیت انتخاب خودکار بهترین پینگ، مسیریابی بهینه و دسته‌بندی اختصاصی سرورهای Freenetvt
             </p>
-
-            <!-- دسترسی مستقیم به صفحات متصل‌شده -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-right">
-                <a href="singbox.html" class="glass-pill rounded-2xl p-4 flex items-center justify-between border border-indigo-500/30 bg-indigo-500/10">
-                    <div class="flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center">
-                            <i data-lucide="cpu" class="w-5 h-5"></i>
-                        </div>
-                        <div>
-                            <div class="font-bold text-sm text-white">پنل Sing-box</div>
-                            <div class="text-xs text-indigo-200/80">کانفیگ‌های هوشمند و پروفایل مستقیم</div>
-                        </div>
-                    </div>
-                    <i data-lucide="chevron-left" class="w-5 h-5 text-indigo-300"></i>
-                </a>
-
-                <a href="xray.html" class="glass-pill rounded-2xl p-4 flex items-center justify-between border border-emerald-500/30 bg-emerald-500/10">
-                    <div class="flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center">
-                            <i data-lucide="shield-check" class="w-5 h-5"></i>
-                        </div>
-                        <div>
-                            <div class="font-bold text-sm text-white">پنل V2ray / Xray</div>
-                            <div class="text-xs text-emerald-200/80">VLESS، VMess، Trojan، SS و تست پینگ</div>
-                        </div>
-                    </div>
-                    <i data-lucide="chevron-left" class="w-5 h-5 text-emerald-300"></i>
-                </a>
-            </div>
         </section>
 
-        <!-- کارت تولید و دریافت کانفیگ -->
+        <!-- کارت اصلی تولید و دریافت کانفیگ -->
         <section class="glass-card rounded-3xl p-5 sm:p-8 relative overflow-hidden">
             <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500"></div>
 
+            <!-- وضعیت لودینگ اولیه ۵ ثانیه‌ای -->
             <div id="loadingState" class="py-12 flex flex-col items-center justify-center text-center space-y-4">
                 <div class="relative w-14 h-14 flex items-center justify-center">
                     <div class="absolute inset-0 rounded-full border-4 border-slate-800"></div>
@@ -201,13 +182,14 @@
                 </div>
                 <div class="space-y-1.5">
                     <h3 class="text-base sm:text-lg font-bold text-white">در حال ایجاد کانفیگ اختصاصی شما...</h3>
-                    <p class="text-xs text-slate-400">بهینه‌سازی پینگ و اتصال به سرورهای Sing-box و Xray</p>
+                    <p class="text-xs text-slate-400">بهینه‌سازی پینگ و اتصال به سرورهای Hidify و Sing-box</p>
                 </div>
                 <div class="w-64 max-w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
                     <div id="progressBar" class="h-full bg-gradient-to-r from-sky-400 to-indigo-500 w-0 transition-all duration-500 ease-out rounded-full"></div>
                 </div>
             </div>
 
+            <!-- محتوای اصلی کارت بعد از اتمام لودینگ -->
             <div id="readyState" class="hidden space-y-6">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
                     <div class="flex items-center gap-2.5">
@@ -228,14 +210,15 @@
                     </div>
                 </div>
 
+                <!-- بخش ۱: لینک اشتراک -->
                 <div id="subContent" class="space-y-5">
                     <div class="space-y-2">
                         <label class="text-xs font-medium text-slate-300 flex items-center justify-between">
-                            <span>لینک اشتراک هوشمند Sing-box (کلیک کنید تا کپی شود):</span>
+                            <span>لینک اشتراک هوشمند Sing-box & Hidify (کلیک کنید تا کپی شود):</span>
                             <span class="text-[11px] text-sky-400">نسخه v1.10+</span>
                         </label>
                         <div class="relative flex items-center">
-                            <input id="subUrlInput" type="text" readonly value="https://sub.freenetvt.ir/singbox/auto-config.json"
+                            <input id="subUrlInput" type="text" readonly value="https://sub.freenetvt.ir/singbox/auto-config.json" 
                                 onclick="copySubLink()"
                                 class="w-full bg-slate-950/90 border border-white/10 hover:border-sky-500/50 focus:border-sky-500 rounded-2xl py-3.5 pr-4 pl-12 text-xs sm:text-sm text-sky-300 font-mono text-left dir-ltr cursor-pointer outline-none transition-colors select-all" dir="ltr">
                             <button onclick="copySubLink()" title="کپی لینک" class="absolute left-2 p-2 rounded-xl bg-white/5 hover:bg-sky-500/20 text-slate-300 hover:text-sky-400 transition-colors">
@@ -264,9 +247,10 @@
                     </div>
                 </div>
 
+                <!-- بخش ۲: پیش‌نمایش کد JSON -->
                 <div id="jsonContent" class="hidden space-y-4">
                     <div class="flex items-center justify-between">
-                        <span class="text-xs text-slate-400">ساختار استاندارد Sing-box:</span>
+                        <span class="text-xs text-slate-400">ساختار استاندارد با ۴ سکتور مجزا:</span>
                         <button onclick="copyRawJson()" class="text-xs font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1 bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/20">
                             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                             <span>کپی کد JSON</span>
@@ -281,9 +265,10 @@
             </div>
         </section>
 
-        <!-- بخش VIP و تلگرام -->
+        <!-- بخش سرویس‌های VIP و شبکه‌های اجتماعی -->
         <section class="rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-sky-900/40 via-indigo-900/30 to-slate-900/80 border border-sky-500/25 shadow-xl relative overflow-hidden">
             <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-sky-500/10 rounded-full blur-2xl pointer-events-none"></div>
+            
             <div class="space-y-6 relative z-10">
                 <div class="space-y-2 text-center sm:text-right">
                     <div class="inline-flex items-center gap-1.5 text-amber-400 text-xs font-bold bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full">
@@ -292,7 +277,7 @@
                     </div>
                     <h2 class="text-xl sm:text-2xl font-extrabold text-white">سرویس‌های VIP و اختصاصی Freenetvt</h2>
                     <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                        با عضویت در کانال و گپ رسمی ما، به کانفیگ‌های روزانه، سرورهای پرسرعت و پشتیبانی مستقیم دسترسی پیدا کنید:
+                        با عضویت در کانال و گپ رسمی ما، به کانفیگ‌های روزانه، سرورهای پرسرعت Hidify و پشتیبانی مستقیم دسترسی پیدا کنید:
                     </p>
                 </div>
 
@@ -354,7 +339,7 @@
                         </div>
                         <div>
                             <div class="font-bold text-sm text-white">نسخه iOS (آیفون و آیپد)</div>
-                            <div class="text-xs text-slate-400 mt-0.5">Sing-box • Karing • Streisand</div>
+                            <div class="text-xs text-slate-400 mt-0.5">Hidify • Sing-box • Karing</div>
                         </div>
                     </div>
                     <i data-lucide="chevron-left" class="w-5 h-5 text-slate-500 group-hover:text-sky-400 group-hover:-translate-x-1 transition-all"></i>
@@ -367,7 +352,7 @@
                         </div>
                         <div>
                             <div class="font-bold text-sm text-white">نسخه Android (اندروید)</div>
-                            <div class="text-xs text-slate-400 mt-0.5">Sing-box • NekoBox • v2rayNG</div>
+                            <div class="text-xs text-slate-400 mt-0.5">Hidify • Sing-box</div>
                         </div>
                     </div>
                     <i data-lucide="chevron-left" class="w-5 h-5 text-slate-500 group-hover:text-emerald-400 group-hover:-translate-x-1 transition-all"></i>
@@ -400,7 +385,7 @@
         </div>
     </footer>
 
-    <!-- Toast -->
+    <!-- نوتیفیکیشن کپی شدن (Toast) -->
     <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-4 transition-all duration-300">
         <div class="bg-emerald-500 text-slate-950 font-bold text-xs sm:text-sm px-5 py-3 rounded-2xl shadow-2xl shadow-emerald-500/30 flex items-center gap-2">
             <i data-lucide="check-circle-2" class="w-5 h-5"></i>
@@ -408,9 +393,10 @@
         </div>
     </div>
 
-    <!-- Modals -->
+    <!-- ================= مودال‌ها (Modals) ================= -->
     <div id="modalBackdrop" onclick="closeAllModals()" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden transition-opacity"></div>
 
+    <!-- مودال دانلود iOS -->
     <div id="iosModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-md glass-card rounded-3xl p-6 z-50 hidden space-y-5">
         <div class="flex items-center justify-between border-b border-white/10 pb-3">
             <h3 class="text-base font-bold text-white flex items-center gap-2">
@@ -422,12 +408,19 @@
             </button>
         </div>
         <div class="space-y-3 text-sm">
+            <a href="https://apps.apple.com/us/app/hidify-proxy-vpn/id6504799393" target="_blank" class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-sky-500/15 border border-white/10 transition-colors">
+                <div>
+                    <div class="font-bold text-white">Hidify (پیشنهاد ویژه)</div>
+                    <div class="text-xs text-slate-400">اتصال سریع، امن و پایدار در آیفون</div>
+                </div>
+                <span class="text-xs bg-sky-500 text-white px-3 py-1 rounded-lg font-semibold">App Store</span>
+            </a>
             <a href="https://apps.apple.com/us/app/sing-box-vt/id6673731168" target="_blank" class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-sky-500/15 border border-white/10 transition-colors">
                 <div>
                     <div class="font-bold text-white">Sing-box VT</div>
-                    <div class="text-xs text-slate-400">پشتیبانی کامل از هسته Sing-box</div>
+                    <div class="text-xs text-slate-400">پشتیبانی کامل از تنظیمات پیشرفته</div>
                 </div>
-                <span class="text-xs bg-sky-500 text-white px-3 py-1 rounded-lg font-semibold">App Store</span>
+                <span class="text-xs bg-white/10 text-slate-200 px-3 py-1 rounded-lg font-semibold">App Store</span>
             </a>
             <a href="https://apps.apple.com/us/app/karing/id6472431552" target="_blank" class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-sky-500/15 border border-white/10 transition-colors">
                 <div>
@@ -436,16 +429,10 @@
                 </div>
                 <span class="text-xs bg-white/10 text-slate-200 px-3 py-1 rounded-lg font-semibold">App Store</span>
             </a>
-            <a href="https://apps.apple.com/us/app/streisand/id6450534064" target="_blank" class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-sky-500/15 border border-white/10 transition-colors">
-                <div>
-                    <div class="font-bold text-white">Streisand</div>
-                    <div class="text-xs text-slate-400">پشتیبانی از پروتکل‌های متنوع</div>
-                </div>
-                <span class="text-xs bg-white/10 text-slate-200 px-3 py-1 rounded-lg font-semibold">App Store</span>
-            </a>
         </div>
     </div>
 
+    <!-- مودال دانلود Android -->
     <div id="androidModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-md glass-card rounded-3xl p-6 z-50 hidden space-y-5">
         <div class="flex items-center justify-between border-b border-white/10 pb-3">
             <h3 class="text-base font-bold text-white flex items-center gap-2">
@@ -457,155 +444,207 @@
             </button>
         </div>
         <div class="space-y-3 text-sm">
-            <a href="https://github.com/SagerNet/sing-box/releases" target="_blank" class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-emerald-500/15 border border-white/10 transition-colors">
+            <a href="https://github.com/hidify/hidify-app/releases" target="_blank" class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-emerald-500/15 border border-white/10 transition-colors">
                 <div>
-                    <div class="font-bold text-white">Sing-box for Android</div>
-                    <div class="text-xs text-slate-400">نسخه رسمی از گیت‌هاب</div>
+                    <div class="font-bold text-white">Hidify for Android</div>
+                    <div class="text-xs text-slate-400">پیشنهاد اول • دانلود مستقیم APK از گیت‌هاب</div>
                 </div>
                 <span class="text-xs bg-emerald-500 text-slate-950 px-3 py-1 rounded-lg font-bold">GitHub</span>
             </a>
-            <a href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases" target="_blank" class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-emerald-500/15 border border-white/10 transition-colors">
+            <a href="https://play.google.com/store/apps/details?id=app.hidify.com" target="_blank" class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-emerald-500/15 border border-white/10 transition-colors">
                 <div>
-                    <div class="font-bold text-white">NekoBox for Android</div>
-                    <div class="text-xs text-slate-400">پشتیبانی از Sing-box و Xray</div>
+                    <div class="font-bold text-white">Hidify (Google Play)</div>
+                    <div class="text-xs text-slate-400">نصب مستقیم از گوگل پلی</div>
+                </div>
+                <span class="text-xs bg-white/10 text-slate-200 px-3 py-1 rounded-lg font-semibold">Google Play</span>
+            </a>
+            <a href="https://github.com/SagerNet/sing-box/releases" target="_blank" class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-emerald-500/15 border border-white/10 transition-colors">
+                <div>
+                    <div class="font-bold text-white">Sing-box for Android</div>
+                    <div class="text-xs text-slate-400">نسخه رسمی و قدرتمند</div>
                 </div>
                 <span class="text-xs bg-white/10 text-slate-200 px-3 py-1 rounded-lg font-semibold">GitHub</span>
             </a>
         </div>
     </div>
 
+    <!-- مودال آموزش اتصال -->
     <div id="guideModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-lg glass-card rounded-3xl p-6 z-50 hidden space-y-4">
         <div class="flex items-center justify-between border-b border-white/10 pb-3">
             <h3 class="text-base font-bold text-white flex items-center gap-2">
                 <i data-lucide="book-open" class="w-5 h-5 text-sky-400"></i>
-                <span>راهنمای سریع اتصال</span>
+                <span>راهنمای سریع اتصال با Hidify و Sing-box</span>
             </h3>
             <button onclick="closeAllModals()" class="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
         </div>
         <ol class="space-y-3 text-xs sm:text-sm text-slate-300 list-decimal list-inside leading-relaxed">
-            <li>اپلیکیشن مناسب سیستم‌عامل خود را از بخش دانلود نصب کنید.</li>
-            <li>از دکمه‌های بالای صفحه وارد <strong>پنل Sing-box</strong> یا <strong>پنل Xray</strong> شوید یا لینک اشتراک را کپی کنید.</li>
-            <li>پروفایل یا کانفیگ را در اپلیکیشن وارد کرده و دکمه اتصال را بزنید.</li>
+            <li>اپلیکیشن <strong>Hidify</strong> یا <strong>Sing-box</strong> را از لینک‌های بالا دانلود و نصب کنید.</li>
+            <li>روی دکمه‌ی کپی لینک اشتراک در صفحه اصلی ضربه بزنید.</li>
+            <li>برنامه Hidify را باز کرده و لینک را اضافه (Import) کنید.</li>
+            <li>روی دکمه اتصال بزرگ بزنید تا به سرورهای پرسرعت متصل شوید.</li>
         </ol>
+        <div class="pt-2">
+            <button onclick="closeAllModals()" class="w-full py-2.5 rounded-xl bg-sky-500 text-white font-bold text-xs">متوجه شدم</button>
+        </div>
     </div>
 
+    <!-- مودال درباره ما -->
     <div id="aboutModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-md glass-card rounded-3xl p-6 z-50 hidden space-y-4">
         <div class="flex items-center justify-between border-b border-white/10 pb-3">
-            <h3 class="text-base font-bold text-white">درباره Freenetvt</h3>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="info" class="w-5 h-5 text-sky-400"></i>
+                <span>درباره Freenetvt</span>
+            </h3>
             <button onclick="closeAllModals()" class="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
         </div>
         <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            پروژه <strong>Freenetvt</strong> با هدف ارائه دسترسی سریع، منظم و یکپارچه به پنل‌های Sing-box و V2ray / Xray طراحی شده است.
+            پروژه Freenetvt با هدف ارائه پایدارترین، هوشمندترین و سریع‌ترین کانفیگ‌ها برای دسترسی آزاد و امن به اینترنت شکل گرفته است. تمامی سرورها به صورت خودکار مانیتور و بهینه‌سازی می‌شوند.
         </p>
+        <div class="pt-2">
+            <a href="https://t.me/Freenetvt" target="_blank" class="block text-center py-2.5 rounded-xl bg-sky-500/20 text-sky-400 border border-sky-500/30 font-bold text-xs">عضویت در کانال تلگرام</a>
+        </div>
     </div>
 
+    <!-- مودال قوانین -->
     <div id="rulesModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-md glass-card rounded-3xl p-6 z-50 hidden space-y-4">
         <div class="flex items-center justify-between border-b border-white/10 pb-3">
-            <h3 class="text-base font-bold text-white">قوانین استفاده</h3>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="shield-alert" class="w-5 h-5 text-amber-400"></i>
+                <span>قوانین استفاده از سرویس</span>
+            </h3>
             <button onclick="closeAllModals()" class="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
         </div>
-        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            لطفاً از سرویس‌ها و کانفیگ‌ها به شکل اصولی و مسئولانه استفاده کنید و برای اطلاع از آخرین تغییرات عضو کانال رسمی شوید.
-        </p>
+        <ul class="space-y-2 text-xs sm:text-sm text-slate-300 list-disc list-inside leading-relaxed">
+            <li>لینک‌های اشتراک کاملاً شخصی و مختص شماست؛ از انتشار عمومی آن خودداری کنید.</li>
+            <li>استفاده از سرویس برای فعالیت‌های مخرب، حملات DDOS یا اسپم ممنوع است.</li>
+            <li>سرورها به طور مداوم برای ارائه بهترین پینگ بروزرسانی می‌شوند.</li>
+        </ul>
+        <div class="pt-2">
+            <button onclick="closeAllModals()" class="w-full py-2.5 rounded-xl bg-white/10 text-white font-bold text-xs">پذیرفتن و بستن</button>
+        </div>
     </div>
 
+    <!-- اسکریپت‌های مدیریت تعاملات و لودینگ ۵ ثانیه‌ای -->
     <script>
-        lucide.createIcons();
-
-        const SUB_URL = "https://sub.freenetvt.ir/singbox/auto-config.json";
-        const SAMPLE_SINGBOX_JSON = {
-            log: { level: "info", timestamp: true },
-            outbounds: [
-                { type: "selector", tag: "proxy", outbounds: ["auto", "direct"] },
-                { type: "urltest", tag: "auto", url: "https://www.gstatic.com/generate_204", interval: "3m" },
-                { type: "direct", tag: "direct" }
+        const sampleJsonConfig = {
+            "log": { "level": "info", "timestamp": true },
+            "dns": {
+                "servers": [
+                    { "tag": "proxydns", "address": "tls://1.1.1.1" },
+                    { "tag": "localdns", "address": "h3://dns.google/dns-query", "detour": "direct" }
+                ],
+                "rules": [
+                    { "outbound": "direct", "server": "localdns" }
+                ]
+            },
+            "inbounds": [
+                { "type": "tun", "tag": "tun-in", "inet4_address": "172.19.0.1/30", "auto_route": "true", "strict_route": "true" }
+            ],
+            "outbounds": [
+                { "type": "selector", "tag": "🚀 انتخاب خودکار (Auto)", "outbounds": ["⚡ سرور پینگ اول", "🔥 سرور پینگ دوم"] },
+                { "type": "vless", "tag": "⚡ سرور پینگ اول", "server": "us1.freenetvt.ir", "server_port": 443, "uuid": "b8313836-1234-4567-890a-123456789abc", "flow": "xtls-rprx-vision", "tls": { "enabled": true, "server_name": "cloudflare.com" }, "transport": { "type": "ws", "path": "/freenetvt" } },
+                { "type": "direct", "tag": "direct" }
             ]
         };
 
-        document.getElementById("jsonCodePreview").textContent = JSON.stringify(SAMPLE_SINGBOX_JSON, null, 2);
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.getElementById('jsonCodePreview').textContent = JSON.stringify(sampleJsonConfig, null, 2);
 
-        window.addEventListener("DOMContentLoaded", () => {
-            const bar = document.getElementById("progressBar");
-            setTimeout(() => { bar.style.width = "100%"; }, 80);
-            setTimeout(() => {
-                document.getElementById("loadingState").classList.add("hidden");
-                document.getElementById("readyState").classList.remove("hidden");
-                lucide.createIcons();
-            }, 900);
+            // تنظیم لودینگ ۵ ثانیه‌ای (۵۰۰۰ میلی‌ثانیه)
+            let progress = 0;
+            const progressBar = document.getElementById('progressBar');
+            const loadingState = document.getElementById('loadingState');
+            const readyState = document.getElementById('readyState');
 
-            const counterEl = document.getElementById("visitCounter");
-            let visits = parseInt(localStorage.getItem("freenetvt_visits") || "14892", 10) + 1;
-            localStorage.setItem("freenetvt_visits", visits);
-            counterEl.textContent = visits.toLocaleString("en-US");
+            const totalTime = 5000; // ۵ ثانیه
+            const intervalTime = 100; // هر ۱۰۰ میلی‌ثانیه آپدیت شود
+            const increment = (intervalTime / totalTime) * 100;
+
+            const interval = setInterval(() => {
+                progress += increment;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loadingState.classList.add('hidden');
+                        readyState.classList.remove('hidden');
+                    }, 200);
+                }
+                progressBar.style.width = progress + '%';
+            }, intervalTime);
         });
 
         function switchTab(tab) {
-            const subBtn = document.getElementById("tabSubBtn");
-            const jsonBtn = document.getElementById("tabJsonBtn");
-            const subContent = document.getElementById("subContent");
-            const jsonContent = document.getElementById("jsonContent");
+            const subBtn = document.getElementById('tabSubBtn');
+            const jsonBtn = document.getElementById('tabJsonBtn');
+            const subContent = document.getElementById('subContent');
+            const jsonContent = document.getElementById('jsonContent');
 
-            if (tab === "sub") {
+            if (tab === 'sub') {
                 subBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-sky-500 text-white shadow transition-all";
                 jsonBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all";
-                subContent.classList.remove("hidden");
-                jsonContent.classList.add("hidden");
+                subContent.classList.remove('hidden');
+                jsonContent.classList.add('hidden');
             } else {
                 jsonBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-sky-500 text-white shadow transition-all";
                 subBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all";
-                jsonContent.classList.remove("hidden");
-                subContent.classList.add("hidden");
+                jsonContent.classList.remove('hidden');
+                subContent.classList.add('hidden');
             }
         }
 
-        function showToast(msg) {
-            const toast = document.getElementById("toastNotification");
-            document.getElementById("toastMessage").textContent = msg;
-            toast.classList.remove("opacity-0", "translate-y-4");
-            toast.classList.add("opacity-100", "translate-y-0");
-            setTimeout(() => {
-                toast.classList.remove("opacity-100", "translate-y-0");
-                toast.classList.add("opacity-0", "translate-y-4");
-            }, 2500);
-        }
-
         function copySubLink() {
-            navigator.clipboard?.writeText(SUB_URL);
+            const input = document.getElementById('subUrlInput');
+            input.select();
+            input.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(input.value);
             showToast("لینک اشتراک با موفقیت کپی شد!");
         }
 
         function copyRawJson() {
-            navigator.clipboard?.writeText(JSON.stringify(SAMPLE_SINGBOX_JSON, null, 2));
-            showToast("کد JSON کانفیگ کپی شد!");
+            const jsonText = JSON.stringify(sampleJsonConfig, null, 2);
+            navigator.clipboard.writeText(jsonText);
+            showToast("کد کانفیگ JSON با موفقیت کپی شد!");
         }
 
         function downloadJsonFile() {
-            const blob = new Blob([JSON.stringify(SAMPLE_SINGBOX_JSON, null, 2)], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "Freenetvt-Singbox.json";
-            a.click();
-            URL.revokeObjectURL(url);
-            showToast("فایل کانفیگ دانلود شد!");
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(sampleJsonConfig, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "Freenetvt-Singbox.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            showToast("فایل کانفیگ با موفقیت دانلود شد!");
         }
 
-        function openModal(id) {
-            closeAllModals();
-            document.getElementById("modalBackdrop").classList.remove("hidden");
-            document.getElementById(id).classList.remove("hidden");
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.remove('opacity-0', 'translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-4');
+            }, 3000);
+        }
+
+        function openModal(modalId) {
+            document.getElementById('modalBackdrop').classList.remove('hidden');
+            document.getElementById(modalId).classList.remove('hidden');
         }
 
         function closeAllModals() {
-            document.getElementById("modalBackdrop").classList.add("hidden");
-            ["iosModal", "androidModal", "guideModal", "aboutModal", "rulesModal"].forEach(id => {
-                document.getElementById(id)?.classList.add("hidden");
+            document.getElementById('modalBackdrop').classList.add('hidden');
+            ['iosModal', 'androidModal', 'guideModal', 'aboutModal', 'rulesModal'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
             });
         }
     </script>

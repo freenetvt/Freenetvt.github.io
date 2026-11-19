@@ -2,7 +2,7 @@ name: Update Subscription Pool
 
 on:
   schedule:
-    # اجرا هر 6 ساعت یک بار
+    # Run every 6 hours
     - cron: '0 */6 * * *'
   workflow_dispatch:
 
@@ -47,13 +47,11 @@ jobs:
               "https://t.me/ettehad_vpn",
           ]
 
-          # حذف تکراری‌ها با حفظ ترتیب
           SOURCES = list(dict.fromkeys(RAW_LINKS))
 
           protocols = ("vmess://", "vless://", "trojan://", "ss://", "ssr://", "http://", "https://", "socks4://", "socks5://")
 
           def normalize_source_url(url: str) -> tuple[str, str]:
-              # اگر لینک کانال عمومی تلگرام باشد، به نسخه وب /s/ تبدیل می‌شود
               m = re.match(r"^https?://t\.me/([A-Za-z0-9_]+)/?$", url.strip())
               if m:
                   return f"https://t.me/s/{m.group(1)}", "telegram"
@@ -132,7 +130,6 @@ jobs:
                           except Exception:
                               pass
 
-                      # استخراج لینک‌های کامل پروتکل‌دار
                       matches = re.findall(r"(?:vmess|vless|trojan|ss|ssr|http|https|socks4|socks5)://[^\s<>\"\\]+", content)
                       for line in matches:
                           line = line.strip()
@@ -140,7 +137,6 @@ jobs:
                               tagged = tag_config(line)
                               unique_configs[tagged] = tagged
 
-                      # استخراج IP:Port ساده برای لیست‌های پروکسی خام
                       if src_type in ("socks5_list", "proxy_list"):
                           default_proto = "socks5" if src_type == "socks5_list" else "http"
                           for line in content.splitlines():

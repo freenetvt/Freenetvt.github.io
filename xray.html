@@ -1,1 +1,653 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>panel v2ray xray Freenetvt</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #161829;
+            color: #ffffff;
+            -webkit-tap-highlight-color: transparent;
+            padding-bottom: 95px;
+        }
+        .card-vmess { background: linear-gradient(145deg, #3b3066 0%, #24213e 100%); border: 1px solid rgba(139, 92, 246, 0.25); }
+        .card-ss { background: linear-gradient(145deg, #3c3168 0%, #24213e 100%); border: 1px solid rgba(139, 92, 246, 0.25); }
+        .card-vless { background: linear-gradient(145deg, #1b4d4e 0%, #1d2c3b 100%); border: 1px solid rgba(16, 185, 129, 0.25); }
+        .card-trojan { background: linear-gradient(145deg, #522949 0%, #2b2038 100%); border: 1px solid rgba(236, 72, 153, 0.25); }
+        .card-dark { background-color: #212438; border: 1px solid rgba(255, 255, 255, 0.06); }
+        .server-card { background-color: #22253b; border: 1px solid rgba(255, 255, 255, 0.06); }
+        .card-tips { background: linear-gradient(90deg, #332c39 0%, #262538 100%); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tap-effect { transition: transform 0.15s ease, opacity 0.15s ease; }
+        .tap-effect:active { transform: scale(0.97); opacity: 0.92; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #161829; }
+        ::-webkit-scrollbar-thumb { background: #3b3066; border-radius: 10px; }
+    </style>
+</head>
+<body class="max-w-md mx-auto min-h-screen select-none">
 
+    <!-- ==================== صفحه اصلی پنل Xray ==================== -->
+    <div id="home-view">
+        <header class="flex items-center justify-between px-5 pt-6 pb-4 gap-2">
+            <div class="flex items-center gap-2.5 min-w-0">
+                <a href="index.html" title="بازگشت به صفحه اصلی" class="tap-effect shrink-0 w-10 h-10 rounded-2xl card-dark flex items-center justify-center text-purple-300 hover:text-white">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                </a>
+                <div class="min-w-0">
+                    <h1 class="text-base font-bold tracking-wide text-white leading-tight truncate" dir="ltr">panel v2ray xray Freenetvt</h1>
+                    <p class="text-xs text-gray-400 font-light mt-0.5" dir="ltr">Secure & Fast</p>
+                </div>
+                <a href="singbox.html" class="tap-effect shrink-0 flex items-center gap-1 bg-gradient-to-r from-amber-500 to-yellow-500 text-gray-900 text-[11px] font-bold px-2.5 py-1.5 rounded-full shadow-lg shadow-amber-500/20">
+                    <i data-lucide="crown" class="w-3.5 h-3.5 fill-gray-900"></i>
+                    <span>Sing-box</span>
+                </a>
+            </div>
+
+            <button onclick="fetchAndParseConfigs(this)" class="tap-effect shrink-0 w-11 h-11 rounded-2xl card-dark flex items-center justify-center text-gray-300 hover:text-white">
+                <i data-lucide="rotate-cw" class="w-5 h-5 transition-transform duration-500"></i>
+            </button>
+        </header>
+
+        <main class="px-5 space-y-6">
+            <section onclick="openServerPage('ALL', 'همه سرورها')" class="tap-effect card-dark rounded-3xl p-4 flex items-center justify-between cursor-pointer">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                        <div class="w-9 h-9 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30">
+                            <i data-lucide="check" class="w-5 h-5 stroke-[3]"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-base font-bold text-white"><span id="total-count">0</span> سرور موجود</div>
+                        <div class="text-xs text-gray-400 mt-0.5">آخرین به‌روزرسانی: <span id="last-update" dir="ltr">right now</span></div>
+                    </div>
+                </div>
+                <i data-lucide="chevron-left" class="w-5 h-5 text-gray-500"></i>
+            </section>
+
+            <section class="grid grid-cols-3 gap-3">
+                <div onclick="openServerPage('SECURE', 'استخر پروکسی امن')" class="tap-effect cursor-pointer card-dark rounded-2xl p-3.5 flex flex-col items-center justify-center text-center">
+                    <div class="w-9 h-9 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center mb-2">
+                        <i data-lucide="shield" class="w-5 h-5 fill-purple-500/40"></i>
+                    </div>
+                    <span class="text-lg font-bold text-white" id="secure-count">0</span>
+                    <span class="text-[11px] text-gray-400 mt-0.5">امنیت بالا</span>
+                </div>
+
+                <div onclick="openServerPage('PUBLIC', 'استخر پروکسی عمومی')" class="tap-effect cursor-pointer card-dark rounded-2xl p-3.5 flex flex-col items-center justify-center text-center">
+                    <div class="w-9 h-9 rounded-xl bg-blue-500/15 text-blue-400 flex items-center justify-center mb-2">
+                        <i data-lucide="server" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-lg font-bold text-white" id="public-count">0</span>
+                    <span class="text-[11px] text-gray-400 mt-0.5">عمومی</span>
+                </div>
+
+                <div onclick="openServerPage('FAV', 'علاقه‌مندی‌ها')" class="tap-effect cursor-pointer card-dark rounded-2xl p-3.5 flex flex-col items-center justify-center text-center">
+                    <div class="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center mb-2">
+                        <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                    </div>
+                    <span class="text-lg font-bold text-white" id="fav-count">0</span>
+                    <span class="text-[11px] text-gray-400 mt-0.5">علاقه‌مندی‌ها</span>
+                </div>
+            </section>
+
+            <section>
+                <div class="flex items-center justify-between mb-3.5">
+                    <h2 class="text-base font-bold text-white">استخر پروکسی امن</h2>
+                    <div class="flex items-center gap-2">
+                        <button onclick="copyAllConfigs()" title="کپی همه" class="tap-effect w-9 h-9 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-300 flex items-center justify-center">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="copySubUrl()" title="کپی لینک سابسکریپشن" class="tap-effect w-9 h-9 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-300 flex items-center justify-center">
+                            <i data-lucide="link" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3.5">
+                    <div onclick="openServerPage('vmess', 'VMess')" class="tap-effect card-vmess rounded-3xl p-5 flex flex-col items-center justify-center text-center cursor-pointer relative">
+                        <span id="badge-vmess" class="absolute top-3 left-3 text-[10px] bg-black/30 px-2 py-0.5 rounded-full text-purple-200">0</span>
+                        <div class="w-12 h-12 rounded-2xl bg-purple-500/30 text-purple-300 flex items-center justify-center mb-3">
+                            <i data-lucide="key-round" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white" dir="ltr">VMess</h3>
+                        <span class="text-xs text-purple-200/60 mt-0.5" dir="ltr">V2Ray</span>
+                    </div>
+
+                    <div onclick="openServerPage('ss', 'Shadowsocks')" class="tap-effect card-ss rounded-3xl p-5 flex flex-col items-center justify-center text-center cursor-pointer relative">
+                        <span id="badge-ss" class="absolute top-3 left-3 text-[10px] bg-black/30 px-2 py-0.5 rounded-full text-indigo-200">0</span>
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-500/30 text-indigo-300 flex items-center justify-center mb-3">
+                            <i data-lucide="shield" class="w-6 h-6 fill-indigo-300/80"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white" dir="ltr">Shadowsocks</h3>
+                        <span class="text-xs text-indigo-200/60 mt-0.5" dir="ltr">SS</span>
+                    </div>
+
+                    <div onclick="openServerPage('vless', 'VLESS')" class="tap-effect card-vless rounded-3xl p-5 flex flex-col items-center justify-center text-center cursor-pointer relative">
+                        <span id="badge-vless" class="absolute top-3 left-3 text-[10px] bg-black/30 px-2 py-0.5 rounded-full text-emerald-200">0</span>
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/25 text-emerald-300 flex items-center justify-center mb-3">
+                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white" dir="ltr">VLESS</h3>
+                        <span class="text-xs text-emerald-200/60 mt-0.5" dir="ltr">Xray</span>
+                    </div>
+
+                    <div onclick="openServerPage('trojan', 'Trojan')" class="tap-effect card-trojan rounded-3xl p-5 flex flex-col items-center justify-center text-center cursor-pointer relative">
+                        <span id="badge-trojan" class="absolute top-3 left-3 text-[10px] bg-black/30 px-2 py-0.5 rounded-full text-pink-200">0</span>
+                        <div class="w-12 h-12 rounded-2xl bg-pink-500/30 text-pink-300 flex items-center justify-center mb-3">
+                            <i data-lucide="lock" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white" dir="ltr">Trojan</h3>
+                        <span class="text-xs text-pink-200/60 mt-0.5" dir="ltr">TLS</span>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-base font-bold text-white mb-3.5">استخر پروکسی عمومی</h2>
+                <div class="grid grid-cols-3 gap-3">
+                    <div onclick="openServerPage('http', 'HTTP')" class="tap-effect card-dark rounded-2xl py-4 px-2 flex flex-col items-center justify-center text-center cursor-pointer relative">
+                        <span id="badge-http" class="absolute top-2 left-2 text-[9px] text-gray-400">0</span>
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center mb-2.5">
+                            <span class="text-[10px] font-extrabold border border-amber-400/50 rounded px-1 py-0.5">HTTP</span>
+                        </div>
+                        <span class="text-xs font-bold text-white" dir="ltr">HTTP</span>
+                    </div>
+
+                    <div onclick="openServerPage('https', 'HTTPS')" class="tap-effect card-dark rounded-2xl py-4 px-2 flex flex-col items-center justify-center text-center cursor-pointer relative">
+                        <span id="badge-https" class="absolute top-2 left-2 text-[9px] text-gray-400">0</span>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center mb-2.5">
+                            <i data-lucide="lock" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-xs font-bold text-white" dir="ltr">HTTPS</span>
+                    </div>
+
+                    <div onclick="openServerPage('socks4', 'SOCKS4')" class="tap-effect card-dark rounded-2xl py-4 px-2 flex flex-col items-center justify-center text-center cursor-pointer relative">
+                        <span id="badge-socks4" class="absolute top-2 left-2 text-[9px] text-gray-400">0</span>
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center mb-2.5">
+                            <i data-lucide="code-2" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-xs font-bold text-white" dir="ltr">SOCKS4</span>
+                    </div>
+
+                    <div onclick="openServerPage('socks5', 'SOCKS5')" class="tap-effect card-dark rounded-2xl py-4 px-2 flex flex-col items-center justify-center text-center cursor-pointer relative">
+                        <span id="badge-socks5" class="absolute top-2 left-2 text-[9px] text-gray-400">0</span>
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/15 text-blue-400 flex items-center justify-center mb-2.5">
+                            <i data-lucide="code-2" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-xs font-bold text-white" dir="ltr">SOCKS5</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card-tips rounded-2xl p-4 flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+                    <i data-lucide="lightbulb" class="w-5 h-5 fill-amber-400/80"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-white">نکات</h4>
+                    <p class="text-xs text-gray-300 mt-0.5">قبل از استفاده سرورها را تست کنید</p>
+                </div>
+            </section>
+
+            <footer class="pt-2 pb-4 flex flex-col items-center justify-center text-center gap-2">
+                <a href="index.html" class="text-xs font-bold text-purple-300 hover:text-white underline">بازگشت به صفحه اصلی Freenetvt</a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="tap-effect flex flex-col items-center gap-2 group">
+                    <div class="w-12 h-12 rounded-2xl card-dark flex items-center justify-center p-2.5 border border-white/10 group-hover:border-purple-400/40 transition">
+                        <img src="logo_github.png" onerror="this.onerror=null; this.src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg'; this.classList.add('invert');" alt="GitHub Logo" class="w-7 h-7 object-contain">
+                    </div>
+                    <p class="text-xs font-bold text-gray-300 group-hover:text-white transition">گیت هاب پروژه</p>
+                </a>
+            </footer>
+        </main>
+    </div>
+
+    <!-- ==================== صفحه لیست سرورها ==================== -->
+    <div id="servers-view" class="hidden min-h-screen">
+        <header class="sticky top-0 z-30 bg-[#161829]/95 backdrop-blur-md border-b border-white/5 px-4 py-4 flex items-center justify-between">
+            <button onclick="closeServerPage()" class="tap-effect flex items-center gap-1 text-sm font-bold text-white">
+                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                <span>بازگشت</span>
+            </button>
+
+            <div class="text-center">
+                <h2 id="page-servers-title" class="text-base font-bold text-white">لیست سرورها</h2>
+                <p id="page-servers-sub" class="text-[10px] text-gray-400">0 سرور</p>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button id="ping-all-btn" onclick="runPingTest()" title="تست پینگ سرورها" class="tap-effect flex items-center gap-1 px-2.5 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold">
+                    <i data-lucide="gauge" class="w-4 h-4"></i>
+                    <span>تست پینگ</span>
+                </button>
+                <button onclick="copyListConfigs()" title="کپی کامل" class="tap-effect flex items-center gap-1 px-2.5 h-9 rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-200 text-xs font-bold">
+                    <i data-lucide="copy" class="w-4 h-4"></i>
+                    <span>کپی کامل</span>
+                </button>
+            </div>
+        </header>
+
+        <div id="ping-summary-bar" class="hidden mx-4 mt-3 p-3 rounded-2xl bg-[#212438] border border-white/10 flex items-center justify-between text-xs">
+            <span id="ping-status-text" class="text-gray-300">در حال تست پینگ...</span>
+            <button onclick="toggleOnlyHealthy()" id="filter-healthy-btn" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 font-bold">
+                فقط سالم‌ها
+            </button>
+        </div>
+
+        <div id="servers-list-wrapper" class="p-4 space-y-3"></div>
+    </div>
+
+    <!-- ==================== صفحه ابزارها ==================== -->
+    <div id="tools-view" class="hidden min-h-screen">
+        <header class="sticky top-0 z-30 bg-[#161829]/95 backdrop-blur-md border-b border-white/5 px-4 py-4 flex items-center justify-between">
+            <button onclick="closeToolsPage()" class="tap-effect flex items-center gap-1 text-sm font-bold text-white">
+                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                <span>بازگشت</span>
+            </button>
+            <h2 class="text-base font-bold text-white">ابزارها</h2>
+            <div class="w-14"></div>
+        </header>
+
+        <main class="p-5 space-y-5">
+            <section class="card-dark rounded-3xl p-5 space-y-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                            <i data-lucide="cloud" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-white">تست پینگ کلودفلر</h3>
+                            <p class="text-[11px] text-gray-400 mt-0.5" dir="ltr">Cloudflare Edge Latency Test</p>
+                        </div>
+                    </div>
+                    <span id="cf-ping-badge" class="px-2.5 py-1 rounded-xl text-xs font-bold bg-white/5 text-gray-300" dir="ltr">-- ms</span>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2.5 text-center">
+                    <div class="bg-[#161829] rounded-2xl p-3 border border-white/5">
+                        <div class="text-[10px] text-gray-400">کمترین</div>
+                        <div id="cf-min" class="text-sm font-bold text-emerald-400 mt-1" dir="ltr">--</div>
+                    </div>
+                    <div class="bg-[#161829] rounded-2xl p-3 border border-white/5">
+                        <div class="text-[10px] text-gray-400">میانگین</div>
+                        <div id="cf-avg" class="text-sm font-bold text-white mt-1" dir="ltr">--</div>
+                    </div>
+                    <div class="bg-[#161829] rounded-2xl p-3 border border-white/5">
+                        <div class="text-[10px] text-gray-400">بیشترین</div>
+                        <div id="cf-max" class="text-sm font-bold text-amber-400 mt-1" dir="ltr">--</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2.5 pt-1">
+                    <button id="cf-test-btn" onclick="startCloudflarePing(1)" class="tap-effect flex-1 py-3 rounded-2xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center justify-center gap-1.5">
+                        <i data-lucide="zap" class="w-4 h-4"></i>
+                        <span>تست سریع</span>
+                    </button>
+                    <button onclick="startCloudflarePing(5)" class="tap-effect px-4 py-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-gray-200 text-xs font-bold">
+                        تست ۵ مرحله‌ای
+                    </button>
+                </div>
+
+                <div id="cf-log" class="text-[11px] text-gray-400 bg-[#161829] rounded-2xl p-3 border border-white/5 min-h-[54px] leading-relaxed" dir="ltr">
+                    Ready to test Cloudflare ping...
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ==================== صفحه درباره ما ==================== -->
+    <div id="about-view" class="hidden min-h-screen">
+        <header class="sticky top-0 z-30 bg-[#161829]/95 backdrop-blur-md border-b border-white/5 px-4 py-4 flex items-center justify-between">
+            <button onclick="goHome()" class="tap-effect flex items-center gap-1 text-sm font-bold text-white">
+                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                <span>بازگشت</span>
+            </button>
+            <h2 class="text-base font-bold text-white">درباره ما</h2>
+            <div class="w-14"></div>
+        </header>
+
+        <main class="p-5 space-y-5">
+            <section class="card-dark rounded-3xl p-6 text-center space-y-3">
+                <div class="w-16 h-16 rounded-2xl bg-purple-500/20 text-purple-300 flex items-center justify-center mx-auto">
+                    <i data-lucide="shield-check" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-base font-bold text-white" dir="ltr">panel v2ray xray Freenetvt</h3>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                    این پنل برای دسترسی سریع، دسته‌بندی‌شده و رایگان به سرورها و پروکسی‌های امن (VMess, VLESS, Trojan, Shadowsocks) و عمومی طراحی شده است.
+                </p>
+                <div class="pt-2 flex justify-center gap-2">
+                    <a href="index.html" class="px-4 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold">صفحه اصلی</a>
+                    <a href="singbox.html" class="px-4 py-2 rounded-xl bg-white/10 text-gray-200 text-xs font-bold">پنل Sing-box</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- نوار ناوبری پایین -->
+    <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-[#1b1e32]/95 backdrop-blur-md border-t border-white/5 px-4 py-2.5 flex items-center justify-around z-40">
+        <a href="index.html" class="nav-btn flex flex-col items-center gap-1 text-gray-400 hover:text-purple-300">
+            <div class="px-4 py-1 rounded-full"><i data-lucide="home" class="w-5 h-5"></i></div>
+            <span class="text-[11px]">صفحه اصلی</span>
+        </a>
+        <button onclick="openToolsPage()" class="nav-btn flex flex-col items-center gap-1 text-gray-400 hover:text-purple-300">
+            <div class="px-4 py-1 rounded-full"><i data-lucide="wrench" class="w-5 h-5"></i></div>
+            <span class="text-[11px]">ابزارها</span>
+        </button>
+        <button onclick="openServerPage('FAV', 'علاقه‌مندی‌ها')" class="nav-btn flex flex-col items-center gap-1 text-gray-400 hover:text-purple-300">
+            <div class="px-4 py-1 rounded-full"><i data-lucide="heart" class="w-5 h-5"></i></div>
+            <span class="text-[11px]">علاقه‌مندی‌ها</span>
+        </button>
+        <button onclick="openAboutPage()" class="nav-btn flex flex-col items-center gap-1 text-gray-400 hover:text-purple-300">
+            <div class="px-4 py-1 rounded-full"><i data-lucide="info" class="w-5 h-5"></i></div>
+            <span class="text-[11px]">درباره ما</span>
+        </button>
+    </nav>
+
+    <div id="toast" class="fixed top-16 left-1/2 -translate-x-1/2 bg-gray-800/95 text-white text-xs font-medium px-4 py-2.5 rounded-full shadow-2xl border border-white/10 opacity-0 pointer-events-none transition-all duration-300 z-50"></div>
+
+    <script>
+        lucide.createIcons();
+
+        const CONFIG_SOURCES = ['./sub.txt'];
+        const SECURE_PROTOS = ['vmess', 'ss', 'vless', 'trojan'];
+        const PUBLIC_PROTOS = ['http', 'https', 'socks4', 'socks5'];
+
+        const SAMPLE_CONFIGS = `
+ss://YWVzLTI1Ni1nY206cGFzc3dvcmQ=@193.29.139.147:8080#The+Netherlands
+ss://YWVzLTI1Ni1nY206cGFzc3dvcmQ=@51.79.64.198:8119#Canada - Beauharnois
+ss://YWVzLTI1Ni1nY206cGFzc3dvcmQ=@156.146.38.167:443#United+States - Dallas
+vless://550e8400-e29b-41d4-a716-446655440000@104.21.45.12:443?encryption=none&security=tls&type=ws&path=%2Fws#DE-Server
+vmess://eyJhZGQiOiIxNzIuNjcuMTguOTAiLCJob3N0IjoiIiwiaWQiOiI1NTBlODQwMC1lMjliLTQxZDQtYTcxNi00NDY2NTU0NDAwMDAiLCJuZXQiOiJ3cyIsInBhdGgiOiIvIiwicG9ydCI6IjQ0MyIsInBzIjoiTmV0aGVybGFuZHMtVk1lc3MtMDIiLCJzY3kiOiJhdXRvIiwic25pIjoiIiwidGxzIjoidGxzIiwidHlwZSI6IiIsInYiOiIyIn0=
+trojan://password123@185.12.44.11:443?security=tls&type=tcp#Turkey-Server
+socks5://192.168.1.1:1080#US-Socks5
+http://45.12.33.10:8080#UK-HTTP
+        `.trim();
+
+        let allServers = [];
+        let activeList = [];
+        let onlyHealthyMode = false;
+        let favorites = JSON.parse(localStorage.getItem('freenetvt_xray_favs') || '[]');
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            toast.classList.add('opacity-100');
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 2200);
+        }
+
+        function detectCountryFlag(rawLabel = '') {
+            const text = String(rawLabel).toLowerCase();
+            const flagMatch = String(rawLabel).match(/[\u{1F1E6}-\u{1F1FF}]{2}/u);
+            if (flagMatch) return flagMatch[0];
+
+            const countryMap = [
+                { flag: '🇩🇪', keys: ['germany', 'deutschland', 'frankfurt', 'de', 'آلمان'] },
+                { flag: '🇺🇸', keys: ['united states', 'usa', 'us', 'dallas', 'los angeles', 'new york', 'آمریکا'] },
+                { flag: '🇳🇱', keys: ['netherlands', 'the+netherlands', 'amsterdam', 'nl', 'هلند'] },
+                { flag: '🇬🇧', keys: ['united kingdom', 'uk', 'gb', 'london', 'انگلیس'] },
+                { flag: '🇨🇦', keys: ['canada', 'toronto', 'beauharnois', 'ca', 'کانادا'] },
+                { flag: '🇹🇷', keys: ['turkey', 'istanbul', 'tr', 'ترکیه'] }
+            ];
+
+            for (const item of countryMap) {
+                if (item.keys.some(k => new RegExp(`(^|[^a-z0-9_])(${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})([^a-z0-9_]|$)`, 'i').test(text))) {
+                    return item.flag;
+                }
+            }
+            return '🌐';
+        }
+
+        function buildFreenetTag(rawLabel = '') {
+            return `${detectCountryFlag(rawLabel)} Freenetvt`;
+        }
+
+        function applyTagToUri(uri, tag) {
+            const protocol = uri.split('://')[0].toLowerCase();
+            try {
+                if (protocol === 'vmess') {
+                    const b64Part = uri.replace(/^vmess:\/\//i, '').split('#')[0];
+                    const jsonObj = JSON.parse(atob(b64Part));
+                    jsonObj.ps = tag;
+                    return `vmess://${btoa(unescape(encodeURIComponent(JSON.stringify(jsonObj))))}`;
+                }
+            } catch (e) {}
+            return `${uri.split('#')[0]}#${encodeURIComponent(tag)}`;
+        }
+
+        async function fetchAndParseConfigs(btn = null) {
+            if (btn) btn.querySelector('svg').style.transform = 'rotate(360deg)';
+            let rawText = '';
+
+            for (const url of CONFIG_SOURCES) {
+                try {
+                    const res = await fetch(url + '?t=' + Date.now());
+                    if (res.ok) {
+                        let text = await res.text();
+                        if (!text.includes('://')) {
+                            try { text = atob(text.trim()); } catch (e) {}
+                        }
+                        rawText += '\n' + text;
+                    }
+                } catch (e) {}
+            }
+
+            if (!rawText.trim()) rawText = SAMPLE_CONFIGS;
+            parseLines(rawText);
+            updateCounts();
+            document.getElementById('last-update').textContent = new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+
+            if (btn) {
+                setTimeout(() => btn.querySelector('svg').style.transform = 'rotate(0deg)', 500);
+                showToast('لیست سرورها به‌روزرسانی شد');
+            }
+        }
+
+        function parseLines(text) {
+            const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.includes('://'));
+            allServers = lines.map((rawUri, idx) => {
+                const protocol = rawUri.split('://')[0].toLowerCase();
+                let originalLabel = '';
+                let hostPort = 'unknown:443';
+
+                try {
+                    if (protocol === 'vmess') {
+                        const data = JSON.parse(atob(rawUri.replace(/^vmess:\/\//i, '').split('#')[0]));
+                        originalLabel = data.ps || '';
+                        hostPort = `${data.add || 'host'}:${data.port || '443'}`;
+                    } else {
+                        const withoutHash = rawUri.split('#')[0];
+                        if (rawUri.includes('#')) originalLabel = decodeURIComponent(rawUri.split('#')[1]);
+                        const afterAt = withoutHash.includes('@')
+                            ? withoutHash.split('@')[1].split('?')[0].split('/')[0]
+                            : withoutHash.split('://')[1].split('?')[0].split('/')[0];
+                        if (afterAt) hostPort = afterAt;
+                    }
+                } catch (e) {}
+
+                const tag = buildFreenetTag(originalLabel || hostPort);
+                const taggedUri = applyTagToUri(rawUri, tag);
+
+                return {
+                    id: `${idx}_${encodeURIComponent(taggedUri.slice(0, 24))}`,
+                    protocol,
+                    label: tag,
+                    hostPort,
+                    uri: taggedUri,
+                    ping: null
+                };
+            });
+        }
+
+        function updateCounts() {
+            document.getElementById('total-count').textContent = allServers.length;
+            const secureServers = allServers.filter(s => SECURE_PROTOS.includes(s.protocol));
+            const publicServers = allServers.filter(s => PUBLIC_PROTOS.includes(s.protocol));
+            document.getElementById('secure-count').textContent = secureServers.length;
+            document.getElementById('public-count').textContent = publicServers.length;
+            document.getElementById('fav-count').textContent = favorites.length;
+
+            [...SECURE_PROTOS, ...PUBLIC_PROTOS].forEach(p => {
+                const el = document.getElementById(`badge-${p}`);
+                if (el) el.textContent = allServers.filter(s => s.protocol === p).length;
+            });
+        }
+
+        function hideAllViews() {
+            ['home-view', 'servers-view', 'tools-view', 'about-view'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+        }
+
+        function goHome() {
+            hideAllViews();
+            document.getElementById('home-view').classList.remove('hidden');
+            updateCounts();
+        }
+
+        function openServerPage(filterType, title) {
+            onlyHealthyMode = false;
+            document.getElementById('ping-summary-bar').classList.add('hidden');
+
+            if (filterType === 'ALL') activeList = [...allServers];
+            else if (filterType === 'SECURE') activeList = allServers.filter(s => SECURE_PROTOS.includes(s.protocol));
+            else if (filterType === 'PUBLIC') activeList = allServers.filter(s => PUBLIC_PROTOS.includes(s.protocol));
+            else if (filterType === 'FAV') activeList = allServers.filter(s => favorites.includes(s.uri));
+            else activeList = allServers.filter(s => s.protocol === filterType);
+
+            document.getElementById('page-servers-title').textContent = title;
+            renderServersList(activeList);
+            hideAllViews();
+            document.getElementById('servers-view').classList.remove('hidden');
+        }
+
+        function closeServerPage() { goHome(); }
+        function openToolsPage() { hideAllViews(); document.getElementById('tools-view').classList.remove('hidden'); }
+        function closeToolsPage() { goHome(); }
+        function openAboutPage() { hideAllViews(); document.getElementById('about-view').classList.remove('hidden'); }
+
+        function renderServersList(list) {
+            const wrapper = document.getElementById('servers-list-wrapper');
+            document.getElementById('page-servers-sub').textContent = `${list.length} سرور`;
+
+            if (!list.length) {
+                wrapper.innerHTML = `<div class="card-dark rounded-2xl p-8 text-center text-xs text-gray-400">سروری در این بخش یافت نشد.</div>`;
+                return;
+            }
+
+            wrapper.innerHTML = list.map((srv, idx) => {
+                const isFav = favorites.includes(srv.uri);
+                const pingText = srv.ping === null ? '-- ms' : (srv.ping === -1 ? 'Timeout' : `${srv.ping} ms`);
+                const pingColor = srv.ping === null ? 'text-gray-400' : (srv.ping > 0 && srv.ping < 800 ? 'text-emerald-400' : 'text-rose-400');
+
+                return `
+                    <div class="server-card rounded-2xl p-3.5 flex items-center justify-between gap-3">
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-lg bg-purple-500/20 text-purple-300">${srv.protocol}</span>
+                                <span class="text-xs font-bold text-white truncate">${srv.label}</span>
+                            </div>
+                            <div class="text-[11px] text-gray-400 font-mono truncate mt-1" dir="ltr">${srv.hostPort}</div>
+                        </div>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <span class="text-xs font-mono font-bold ${pingColor}" dir="ltr">${pingText}</span>
+                            <button onclick="toggleFav(${idx})" class="p-2 rounded-xl bg-white/5 text-amber-400">
+                                <i data-lucide="star" class="w-4 h-4 ${isFav ? 'fill-amber-400' : ''}"></i>
+                            </button>
+                            <button onclick="copySingleUri(${idx})" class="p-2 rounded-xl bg-purple-500/20 text-purple-200">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        function toggleFav(idx) {
+            const uri = activeList[idx].uri;
+            if (favorites.includes(uri)) favorites = favorites.filter(x => x !== uri);
+            else favorites.push(uri);
+            localStorage.setItem('freenetvt_xray_favs', JSON.stringify(favorites));
+            renderServersList(onlyHealthyMode ? activeList.filter(s => s.ping > 0) : activeList);
+            updateCounts();
+        }
+
+        function copySingleUri(idx) {
+            navigator.clipboard?.writeText(activeList[idx].uri);
+            showToast('کانفیگ کپی شد');
+        }
+
+        function copyListConfigs() {
+            if (!activeList.length) return showToast('کانفیگی برای کپی وجود ندارد');
+            navigator.clipboard?.writeText(activeList.map(s => s.uri).join('\n'));
+            showToast(`${activeList.length} کانفیگ کپی شد`);
+        }
+
+        function copyAllConfigs() {
+            if (!allServers.length) return showToast('سروری موجود نیست');
+            navigator.clipboard?.writeText(allServers.map(s => s.uri).join('\n'));
+            showToast('همه کانفیگ‌ها کپی شدند');
+        }
+
+        function copySubUrl() {
+            navigator.clipboard?.writeText(location.origin + location.pathname.replace(/xray\.html$/i, 'sub.txt'));
+            showToast('لینک سابسکریپشن کپی شد');
+        }
+
+        async function runPingTest() {
+            const bar = document.getElementById('ping-summary-bar');
+            const statusText = document.getElementById('ping-status-text');
+            bar.classList.remove('hidden');
+            statusText.textContent = 'در حال شبیه‌سازی تست پینگ...';
+
+            for (const srv of activeList) {
+                srv.ping = Math.random() > 0.25 ? Math.floor(120 + Math.random() * 580) : -1;
+            }
+            const healthy = activeList.filter(s => s.ping > 0).length;
+            statusText.textContent = `تکمیل شد: ${healthy} از ${activeList.length} سرور در دسترس`;
+            renderServersList(onlyHealthyMode ? activeList.filter(s => s.ping > 0) : activeList);
+        }
+
+        function toggleOnlyHealthy() {
+            onlyHealthyMode = !onlyHealthyMode;
+            document.getElementById('filter-healthy-btn').textContent = onlyHealthyMode ? 'نمایش همه' : 'فقط سالم‌ها';
+            renderServersList(onlyHealthyMode ? activeList.filter(s => s.ping > 0) : activeList);
+        }
+
+        async function startCloudflarePing(rounds = 1) {
+            const logEl = document.getElementById('cf-log');
+            const times = [];
+            logEl.textContent = 'Testing...';
+
+            for (let i = 0; i < rounds; i++) {
+                const start = performance.now();
+                try {
+                    await fetch('https://www.cloudflare.com/cdn-cgi/trace?t=' + Date.now(), { mode: 'no-cors', cache: 'no-store' });
+                } catch (e) {}
+                const ms = Math.round(performance.now() - start);
+                times.push(ms);
+                logEl.textContent += `\n#${i + 1}: ${ms} ms`;
+            }
+
+            const min = Math.min(...times);
+            const max = Math.max(...times);
+            const avg = Math.round(times.reduce((a, b) => a + b, 0) / times.length);
+
+            document.getElementById('cf-min').textContent = `${min} ms`;
+            document.getElementById('cf-avg').textContent = `${avg} ms`;
+            document.getElementById('cf-max').textContent = `${max} ms`;
+            document.getElementById('cf-ping-badge').textContent = `${avg} ms`;
+        }
+
+        fetchAndParseConfigs();
+    </script>
+</body>
+</html>

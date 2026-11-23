@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" class="dark">
+<html lang="fa" dir="rtl" class="dark bg-[#0b0f19]">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Freenetvt | دریافت کانفیگ هوشمند Sing-box</title>
     
     <!-- تنظیم رنگ نوار ابزار مرورگر و سیستم‌عامل دقیقاً همرنگ تم پنل (#0b0f19) -->
     <meta name="theme-color" content="#0b0f19">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="msapplication-navbutton-color" content="#0b0f19">
 
@@ -45,11 +46,12 @@
         }
     </script>
     <style>
-        body {
-            background-color: #0b0f19;
+        html, body {
+            background-color: #0b0f19 !important;
             color: #f8fafc;
             font-family: 'Vazirmatn', sans-serif;
             overflow-x: hidden;
+            overscroll-behavior-y: none;
         }
         /* افکت شیشه‌ای (Glassmorphism) */
         .glass-card {
@@ -92,7 +94,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between relative selection:bg-sky-500/30 selection:text-sky-200">
+<body class="min-h-screen flex flex-col justify-between relative bg-[#0b0f19] selection:bg-sky-500/30 selection:text-sky-200">
 
     <!-- نورهای پس‌زمینه (Ambient Glow) -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
@@ -102,12 +104,13 @@
     </div>
 
     <!-- نوار ناوبری بالا (Navbar) -->
-    <header class="w-full border-b border-white/5 bg-[#0b0f19]/80 backdrop-blur-md sticky top-0 z-40">
+    <header class="w-full border-b border-white/5 bg-[#0b0f19]/90 backdrop-blur-md sticky top-0 z-40">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
             <!-- لوگو و نام برند -->
             <a href="index.html" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/25 group-hover:scale-105 transition-transform">
-                    <i data-lucide="home" class="w-6 h-6 text-white"></i>
+                <div class="w-10 h-10 rounded-xl bg-slate-900 border border-white/10 overflow-hidden flex items-center justify-center shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform">
+                    <img src="./Freenetvt_logo.omg" alt="Freenetvt Logo" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+                    <i data-lucide="zap" class="w-5 h-5 text-sky-400 hidden"></i>
                 </div>
                 <div class="flex flex-col">
                     <div class="flex items-center gap-2">
@@ -138,12 +141,12 @@
         <!-- بخش هیرو (Hero Section) -->
         <section class="text-center space-y-4 p-6 sm:p-8 rounded-3xl bg-slate-900/40 border border-white/20 shadow-2xl relative overflow-hidden">
             
-            <!-- عکس پروفایل کانال تلگرام به همراه نشانگر آنلاین سبز چشمک‌زن -->
+            <!-- لوگوی پنل به همراه نشانگر آنلاین سبز چشمک‌زن -->
             <div class="flex justify-center mb-4">
                 <div class="relative group">
                     <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-sky-400 to-indigo-600 blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-white overflow-hidden bg-slate-950 shadow-xl flex items-center justify-center">
-                        <img src="https://t.me/i/userpic/320/Freenetvt.jpg" alt="Freenetvt Channel Profile" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150&auto=format&fit=crop&q=80'">
+                        <img src="./Freenetvt_logo.omg" alt="Freenetvt Logo" class="w-full h-full object-cover" onerror="this.src='https://t.me/i/userpic/320/Freenetvt.jpg'">
                     </div>
                     <!-- نشانگر آنلاین چشمک‌زن سبز -->
                     <span class="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-slate-950 animate-ping"></span>
@@ -173,7 +176,7 @@
         <section class="glass-card rounded-3xl p-5 sm:p-8 relative overflow-hidden">
             <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500"></div>
 
-            <!-- وضعیت لودینگ اولیه ۵ ثانیه‌ای -->
+            <!-- وضعیت لودینگ اولیه -->
             <div id="loadingState" class="py-12 flex flex-col items-center justify-center text-center space-y-4">
                 <div class="relative w-14 h-14 flex items-center justify-center">
                     <div class="absolute inset-0 rounded-full border-4 border-slate-800"></div>
@@ -182,7 +185,7 @@
                 </div>
                 <div class="space-y-1.5">
                     <h3 class="text-base sm:text-lg font-bold text-white">در حال ایجاد کانفیگ اختصاصی شما...</h3>
-                    <p class="text-xs text-slate-400">بهینه‌سازی پینگ و اتصال به سرورهای Hidify و Sing-box</p>
+                    <p class="text-xs text-slate-400">دریافت آخرین لینک اشتراک از link.txt و بهینه‌سازی تنظیمات Sing-box</p>
                 </div>
                 <div class="w-64 max-w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
                     <div id="progressBar" class="h-full bg-gradient-to-r from-sky-400 to-indigo-500 w-0 transition-all duration-500 ease-out rounded-full"></div>
@@ -250,7 +253,7 @@
                 <!-- بخش ۲: پیش‌نمایش کد JSON -->
                 <div id="jsonContent" class="hidden space-y-4">
                     <div class="flex items-center justify-between">
-                        <span class="text-xs text-slate-400">ساختار استاندارد با ۴ سکتور مجزا:</span>
+                        <span class="text-xs text-slate-400">ساختار استاندارد کانفیگ Sing-box:</span>
                         <button onclick="copyRawJson()" class="text-xs font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1 bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/20">
                             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                             <span>کپی کد JSON</span>
@@ -363,7 +366,7 @@
     </main>
 
     <!-- فوتر -->
-    <footer class="border-t border-white/5 bg-[#080b13] py-6 px-4 sm:px-6 mt-12">
+    <footer class="border-t border-white/5 bg-[#0b0f19] py-6 px-4 sm:px-6 mt-12">
         <div class="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
             <div class="flex items-center gap-2 font-medium text-slate-300">
                 <span>Design & Config by</span>
@@ -480,14 +483,11 @@
             </button>
         </div>
         <ol class="space-y-3 text-xs sm:text-sm text-slate-300 list-decimal list-inside leading-relaxed">
-            <li>اپلیکیشن <strong>Hidify</strong> یا <strong>Sing-box</strong> را از لینک‌های بالا دانلود و نصب کنید.</li>
-            <li>روی دکمه‌ی کپی لینک اشتراک در صفحه اصلی ضربه بزنید.</li>
-            <li>برنامه Hidify را باز کرده و لینک را اضافه (Import) کنید.</li>
-            <li>روی دکمه اتصال بزرگ بزنید تا به سرورهای پرسرعت متصل شوید.</li>
+            <li>اپلیکیشن <strong>Hidify</strong> یا <strong>Sing-box</strong> را از لینک‌های بالا نصب و باز کنید.</li>
+            <li>لینک اشتراک تولیدشده در صفحه را کپی کنید یا روی دکمه <strong>ایمپورت مستقیم به Sing-box</strong> بزنید.</li>
+            <li>در اپلیکیشن پروفایل جدید را اضافه و بروزرسانی کنید تا لیست سرورها و مسیریابی هوشمند اعمال شود.</li>
+            <li>دکمه اتصال را بزنید و از اتصال پایدار بهره‌مند شوید.</li>
         </ol>
-        <div class="pt-2">
-            <button onclick="closeAllModals()" class="w-full py-2.5 rounded-xl bg-sky-500 text-white font-bold text-xs">متوجه شدم</button>
-        </div>
     </div>
 
     <!-- مودال درباره ما -->
@@ -502,151 +502,271 @@
             </button>
         </div>
         <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            پروژه Freenetvt با هدف ارائه پایدارترین، هوشمندترین و سریع‌ترین کانفیگ‌ها برای دسترسی آزاد و امن به اینترنت شکل گرفته است. تمامی سرورها به صورت خودکار مانیتور و بهینه‌سازی می‌شوند.
+            پروژه <strong>Freenetvt</strong> با هدف ارائه اشتراک‌های به‌روز، تست‌شده و بهینه برای کلاینت‌های مدرن مثل Sing-box و Hidify طراحی شده است. برای دریافت آخرین آپدیت‌ها به کانال و گپ تلگرام ما سر بزنید.
         </p>
-        <div class="pt-2">
-            <a href="https://t.me/Freenetvt" target="_blank" class="block text-center py-2.5 rounded-xl bg-sky-500/20 text-sky-400 border border-sky-500/30 font-bold text-xs">عضویت در کانال تلگرام</a>
-        </div>
     </div>
 
-    <!-- مودال قوانین -->
+    <!-- مودال قوانین استفاده -->
     <div id="rulesModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-md glass-card rounded-3xl p-6 z-50 hidden space-y-4">
         <div class="flex items-center justify-between border-b border-white/10 pb-3">
             <h3 class="text-base font-bold text-white flex items-center gap-2">
-                <i data-lucide="shield-alert" class="w-5 h-5 text-amber-400"></i>
-                <span>قوانین استفاده از سرویس</span>
+                <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i>
+                <span>قوانین استفاده</span>
             </h3>
             <button onclick="closeAllModals()" class="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
         </div>
-        <ul class="space-y-2 text-xs sm:text-sm text-slate-300 list-disc list-inside leading-relaxed">
-            <li>لینک‌های اشتراک کاملاً شخصی و مختص شماست؛ از انتشار عمومی آن خودداری کنید.</li>
-            <li>استفاده از سرویس برای فعالیت‌های مخرب، حملات DDOS یا اسپم ممنوع است.</li>
-            <li>سرورها به طور مداوم برای ارائه بهترین پینگ بروزرسانی می‌شوند.</li>
+        <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300 list-disc list-inside leading-relaxed">
+            <li>استفاده از سرویس‌ها صرفاً برای دسترسی ایمن و مجاز به اینترنت است.</li>
+            <li>از ایجاد فشار غیرمجاز یا سوءاستفاده از لینک‌های اشتراک خودداری کنید.</li>
+            <li>لینک‌های اشتراک به‌صورت دوره‌ای بروزرسانی می‌شوند.</li>
         </ul>
-        <div class="pt-2">
-            <button onclick="closeAllModals()" class="w-full py-2.5 rounded-xl bg-white/10 text-white font-bold text-xs">پذیرفتن و بستن</button>
-        </div>
     </div>
 
-    <!-- اسکریپت‌های مدیریت تعاملات و لودینگ ۵ ثانیه‌ای -->
     <script>
-        const sampleJsonConfig = {
-            "log": { "level": "info", "timestamp": true },
-            "dns": {
-                "servers": [
-                    { "tag": "proxydns", "address": "tls://1.1.1.1" },
-                    { "tag": "localdns", "address": "h3://dns.google/dns-query", "detour": "direct" }
-                ],
-                "rules": [
-                    { "outbound": "direct", "server": "localdns" }
-                ]
+        lucide.createIcons();
+
+        // فایل متنی حاوی لینک اشتراک در کنار index.html
+        const SUB_FILE_PATH = './link.txt';
+        const FALLBACK_SUB_URL = 'https://sub.freenetvt.ir/singbox/auto-config.json';
+
+        // ساختار پیش‌فرض کانفیگ JSON سینگ‌باکس
+        const DEFAULT_SINGBOX_CONFIG = {
+            log: {
+                level: "info",
+                timestamp: true
             },
-            "inbounds": [
-                { "type": "tun", "tag": "tun-in", "inet4_address": "172.19.0.1/30", "auto_route": "true", "strict_route": "true" }
+            dns: {
+                servers: [
+                    { tag: "dns-remote", address: "https://1.1.1.1/dns-query", detour: "proxy" },
+                    { tag: "dns-local", address: "223.5.5.5", detour: "direct" }
+                ],
+                strategy: "prefer_ipv4"
+            },
+            inbounds: [
+                {
+                    type: "tun",
+                    tag: "tun-in",
+                    interface_name: "tun0",
+                    inet4_address: "172.19.0.1/30",
+                    auto_route: true,
+                    strict_route: true,
+                    stack: "mixed"
+                }
             ],
-            "outbounds": [
-                { "type": "selector", "tag": "🚀 انتخاب خودکار (Auto)", "outbounds": ["⚡ سرور پینگ اول", "🔥 سرور پینگ دوم"] },
-                { "type": "vless", "tag": "⚡ سرور پینگ اول", "server": "us1.freenetvt.ir", "server_port": 443, "uuid": "b8313836-1234-4567-890a-123456789abc", "flow": "xtls-rprx-vision", "tls": { "enabled": true, "server_name": "cloudflare.com" }, "transport": { "type": "ws", "path": "/freenetvt" } },
-                { "type": "direct", "tag": "direct" }
-            ]
+            outbounds: [
+                {
+                    type: "selector",
+                    tag: "proxy",
+                    outbounds: ["auto-urltest", "direct"],
+                    default: "auto-urltest"
+                },
+                {
+                    type: "urltest",
+                    tag: "auto-urltest",
+                    outbounds: [],
+                    url: "https://www.gstatic.com/generate_204",
+                    interval: "3m"
+                },
+                {
+                    type: "direct",
+                    tag: "direct"
+                },
+                {
+                    type: "block",
+                    tag: "block"
+                }
+            ],
+            route: {
+                rules: [
+                    { protocol: "dns", outbound: "dns-remote" },
+                    { geoip: ["ir", "private"], outbound: "direct" },
+                    { geosite: ["category-ir"], outbound: "direct" }
+                ],
+                final: "proxy",
+                auto_detect_interface: true
+            }
         };
 
-        window.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            document.getElementById('jsonCodePreview').textContent = JSON.stringify(sampleJsonConfig, null, 2);
+        let currentSubUrl = FALLBACK_SUB_URL;
+        let currentJsonConfig = DEFAULT_SINGBOX_CONFIG;
 
-            // تنظیم لودینگ ۵ ثانیه‌ای (۵۰۰۰ میلی‌ثانیه)
-            let progress = 0;
+        // خواندن لینک اشتراک از link.txt
+        async function loadSubscriptionFromFile() {
+            try {
+                const response = await fetch(`${SUB_FILE_PATH}?t=${Date.now()}`, {
+                    cache: 'no-store'
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                const text = (await response.text()).trim();
+                const firstLine = text.split(/\r?\n/).map(line => line.trim()).find(line => line.length > 0);
+                if (firstLine) {
+                    currentSubUrl = firstLine;
+                }
+            } catch (err) {
+                console.warn('خواندن link.txt با خطا مواجه شد؛ از لینک پیش‌فرض استفاده می‌شود:', err);
+                currentSubUrl = FALLBACK_SUB_URL;
+            }
+
+            applySubUrlToUI(currentSubUrl);
+        }
+
+        function applySubUrlToUI(url) {
+            const inputEl = document.getElementById('subUrlInput');
+            const importBtnEl = document.getElementById('directImportBtn');
+
+            if (inputEl) {
+                inputEl.value = url;
+            }
+            if (importBtnEl) {
+                importBtnEl.href = `sing-box://import-remote-profile?url=${encodeURIComponent(url)}#Freenetvt`;
+            }
+        }
+
+        function renderJsonPreview() {
+            const previewEl = document.getElementById('jsonCodePreview');
+            if (previewEl) {
+                previewEl.textContent = JSON.stringify(currentJsonConfig, null, 2);
+            }
+        }
+
+        // شبیه‌سازی لودینگ اولیه و نمایش بخش آماده
+        function initLoadingSequence() {
             const progressBar = document.getElementById('progressBar');
             const loadingState = document.getElementById('loadingState');
             const readyState = document.getElementById('readyState');
 
-            const totalTime = 5000; // ۵ ثانیه
-            const intervalTime = 100; // هر ۱۰۰ میلی‌ثانیه آپدیت شود
-            const increment = (intervalTime / totalTime) * 100;
+            renderJsonPreview();
+            const subPromise = loadSubscriptionFromFile();
 
-            const interval = setInterval(() => {
-                progress += increment;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        loadingState.classList.add('hidden');
-                        readyState.classList.remove('hidden');
-                    }, 200);
-                }
-                progressBar.style.width = progress + '%';
-            }, intervalTime);
-        });
+            setTimeout(() => { if (progressBar) progressBar.style.width = '45%'; }, 150);
+            setTimeout(() => { if (progressBar) progressBar.style.width = '80%'; }, 550);
+
+            Promise.all([
+                subPromise,
+                new Promise(resolve => setTimeout(resolve, 1000))
+            ]).then(() => {
+                if (progressBar) progressBar.style.width = '100%';
+                setTimeout(() => {
+                    if (loadingState) loadingState.classList.add('hidden');
+                    if (readyState) readyState.classList.remove('hidden');
+                    lucide.createIcons();
+                }, 250);
+            });
+        }
 
         function switchTab(tab) {
-            const subBtn = document.getElementById('tabSubBtn');
-            const jsonBtn = document.getElementById('tabJsonBtn');
+            const tabSubBtn = document.getElementById('tabSubBtn');
+            const tabJsonBtn = document.getElementById('tabJsonBtn');
             const subContent = document.getElementById('subContent');
             const jsonContent = document.getElementById('jsonContent');
 
             if (tab === 'sub') {
-                subBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-sky-500 text-white shadow transition-all";
-                jsonBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all";
+                tabSubBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-sky-500 text-white shadow transition-all';
+                tabJsonBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all';
                 subContent.classList.remove('hidden');
                 jsonContent.classList.add('hidden');
             } else {
-                jsonBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-sky-500 text-white shadow transition-all";
-                subBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all";
+                tabJsonBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-sky-500 text-white shadow transition-all';
+                tabSubBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all';
                 jsonContent.classList.remove('hidden');
                 subContent.classList.add('hidden');
             }
         }
 
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            const toastMsg = document.getElementById('toastMessage');
+            if (!toast || !toastMsg) return;
+
+            toastMsg.textContent = message;
+            toast.classList.remove('opacity-0', 'translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            clearTimeout(window.__toastTimer);
+            window.__toastTimer = setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-4');
+            }, 2600);
+        }
+
+        function copyTextFallback(text, successMsg) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => showToast(successMsg)).catch(() => {
+                    fallbackExecCopy(text, successMsg);
+                });
+            } else {
+                fallbackExecCopy(text, successMsg);
+            }
+        }
+
+        function fallbackExecCopy(text, successMsg) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                showToast(successMsg);
+            } catch (e) {
+                showToast('خطا در کپی کردن متن');
+            }
+            document.body.removeChild(ta);
+        }
+
         function copySubLink() {
-            const input = document.getElementById('subUrlInput');
-            input.select();
-            input.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(input.value);
-            showToast("لینک اشتراک با موفقیت کپی شد!");
+            const inputEl = document.getElementById('subUrlInput');
+            const val = (inputEl && inputEl.value) ? inputEl.value : currentSubUrl;
+            copyTextFallback(val, 'لینک اشتراک با موفقیت کپی شد!');
         }
 
         function copyRawJson() {
-            const jsonText = JSON.stringify(sampleJsonConfig, null, 2);
-            navigator.clipboard.writeText(jsonText);
-            showToast("کد کانفیگ JSON با موفقیت کپی شد!");
+            const jsonStr = JSON.stringify(currentJsonConfig, null, 2);
+            copyTextFallback(jsonStr, 'کد JSON کانفیگ با موفقیت کپی شد!');
         }
 
         function downloadJsonFile() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(sampleJsonConfig, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "Freenetvt-Singbox.json");
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-            showToast("فایل کانفیگ با موفقیت دانلود شد!");
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toastNotification');
-            document.getElementById('toastMessage').textContent = message;
-            toast.classList.remove('opacity-0', 'translate-y-4');
-            toast.classList.add('opacity-100', 'translate-y-0');
-            setTimeout(() => {
-                toast.classList.remove('opacity-100', 'translate-y-0');
-                toast.classList.add('opacity-0', 'translate-y-4');
-            }, 3000);
+            const jsonStr = JSON.stringify(currentJsonConfig, null, 2);
+            const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Freenetvt-Singbox.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('فایل Freenetvt-Singbox.json دانلود شد!');
         }
 
         function openModal(modalId) {
-            document.getElementById('modalBackdrop').classList.remove('hidden');
-            document.getElementById(modalId).classList.remove('hidden');
+            const backdrop = document.getElementById('modalBackdrop');
+            const modal = document.getElementById(modalId);
+            if (backdrop) backdrop.classList.remove('hidden');
+            if (modal) modal.classList.remove('hidden');
+            lucide.createIcons();
         }
 
         function closeAllModals() {
-            document.getElementById('modalBackdrop').classList.add('hidden');
-            ['iosModal', 'androidModal', 'guideModal', 'aboutModal', 'rulesModal'].forEach(id => {
-                document.getElementById(id).classList.add('hidden');
+            const backdrop = document.getElementById('modalBackdrop');
+            const modals = ['iosModal', 'androidModal', 'guideModal', 'aboutModal', 'rulesModal'];
+            if (backdrop) backdrop.classList.add('hidden');
+            modals.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('hidden');
             });
         }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeAllModals();
+        });
+
+        window.addEventListener('DOMContentLoaded', initLoadingSequence);
     </script>
 </body>
-                            </html>
+    </html>

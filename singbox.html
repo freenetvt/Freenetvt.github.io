@@ -218,7 +218,7 @@
                             <span class="text-[11px] text-sky-400">نسخه v1.10+</span>
                         </label>
                         <div class="relative flex items-center">
-                            <input id="subUrlInput" type="text" readonly value="https://raw.githubusercontent.com/freenetvt/sub-collector/refs/heads/main/singbox.json" 
+                            <input id="subUrlInput" type="text" readonly value="https://sub.freenetvt.ir/singbox/auto-config.json" 
                                 onclick="copySubLink()"
                                 class="w-full bg-slate-950/90 border border-white/10 hover:border-sky-500/50 focus:border-sky-500 rounded-2xl py-3.5 pr-4 pl-12 text-xs sm:text-sm text-sky-300 font-mono text-left dir-ltr cursor-pointer outline-none transition-colors select-all" dir="ltr">
                             <button onclick="copySubLink()" title="کپی لینک" class="absolute left-2 p-2 rounded-xl bg-white/5 hover:bg-sky-500/20 text-slate-300 hover:text-sky-400 transition-colors">
@@ -233,7 +233,7 @@
                             <span>کپی لینک اشتراک</span>
                         </button>
 
-                        <a id="directImportBtn" href="sing-box://import-remote-profile?url=https%3A%2F%2Fraw.githubusercontent.com%2Ffreenetvt%2Fsub-collector%2Frefs%2Fheads%2Fmain%2Fsingbox.json#Freenetvt" class="w-full py-3.5 px-5 rounded-2xl bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/30 text-indigo-300 hover:text-white font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+                        <a id="directImportBtn" href="sing-box://import-remote-profile?url=https%3A%2F%2Fsub.freenetvt.ir%2Fsingbox%2Fauto-config.json#Freenetvt" class="w-full py-3.5 px-5 rounded-2xl bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/30 text-indigo-300 hover:text-white font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
                             <i data-lucide="external-link" class="w-5 h-5"></i>
                             <span>ایمپورت مستقیم به Sing-box</span>
                         </a>
@@ -250,7 +250,7 @@
                 <!-- بخش ۲: پیش‌نمایش کد JSON -->
                 <div id="jsonContent" class="hidden space-y-4">
                     <div class="flex items-center justify-between">
-                        <span class="text-xs text-slate-400">دریافت مستقیم آخرین فایل JSON از مخزن اشتراک:</span>
+                        <span class="text-xs text-slate-400">ساختار استاندارد با ۴ سکتور مجزا:</span>
                         <button onclick="copyRawJson()" class="text-xs font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1 bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/20">
                             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                             <span>کپی کد JSON</span>
@@ -480,75 +480,830 @@
             </button>
         </div>
         <ol class="space-y-3 text-xs sm:text-sm text-slate-300 list-decimal list-inside leading-relaxed">
-            <li>روی دکمه <strong class="text-sky-400">کپی لینک اشتراک</strong> بزنید یا مستقیم گزینه <strong class="text-indigo-400">ایمپورت مستقیم به Sing-box</strong> را انتخاب کنید.</li>
-            <li>در اپلیکیشن Hidify یا Sing-box وارد بخش پروفایل‌ها / اشتراک‌ها شوید و لینک کپی‌شده را جایگذاری کنید.</li>
-            <li>پروفایل را به‌روزرسانی (Update) کرده و کلید اتصال را فعال کنید.</li>
+            <li>اپلیکیشن <strong>Hidify</strong> یا <strong>Sing-box</strong> را از لینک‌های بالا دانلود و نصب کنید.</li>
+            <li>روی دکمه‌ی کپی لینک اشتراک در صفحه اصلی ضربه بزنید.</li>
+            <li>برنامه Hidify را باز کرده و لینک را اضافه (Import) کنید.</li>
+            <li>روی دکمه اتصال بزرگ بزنید تا به سرورهای پرسرعت متصل شوید.</li>
         </ol>
+        <div class="pt-2">
+            <button onclick="closeAllModals()" class="w-full py-2.5 rounded-xl bg-sky-500 text-white font-bold text-xs">متوجه شدم</button>
+        </div>
     </div>
 
     <!-- مودال درباره ما -->
     <div id="aboutModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-md glass-card rounded-3xl p-6 z-50 hidden space-y-4">
         <div class="flex items-center justify-between border-b border-white/10 pb-3">
-            <h3 class="text-base font-bold text-white">درباره Freenetvt</h3>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="info" class="w-5 h-5 text-sky-400"></i>
+                <span>درباره Freenetvt</span>
+            </h3>
             <button onclick="closeAllModals()" class="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
         </div>
         <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            پروژه Freenetvt با هدف ارائه اشتراک‌های به‌روز و تست‌شده Sing-box همراه با رابط کاربری ساده و سریع برای کاربران ایجاد شده است.
+            پروژه Freenetvt با هدف ارائه پایدارترین، هوشمندترین و سریع‌ترین کانفیگ‌ها برای دسترسی آزاد و امن به اینترنت شکل گرفته است. تمامی سرورها به صورت خودکار مانیتور و بهینه‌سازی می‌شوند.
         </p>
+        <div class="pt-2">
+            <a href="https://t.me/Freenetvt" target="_blank" class="block text-center py-2.5 rounded-xl bg-sky-500/20 text-sky-400 border border-sky-500/30 font-bold text-xs">عضویت در کانال تلگرام</a>
+        </div>
     </div>
 
-    <!-- مودال قوانین استفاده -->
+    <!-- مودال قوانین -->
     <div id="rulesModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-md glass-card rounded-3xl p-6 z-50 hidden space-y-4">
         <div class="flex items-center justify-between border-b border-white/10 pb-3">
-            <h3 class="text-base font-bold text-white">قوانین استفاده</h3>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="shield-alert" class="w-5 h-5 text-amber-400"></i>
+                <span>قوانین استفاده از سرویس</span>
+            </h3>
             <button onclick="closeAllModals()" class="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
         </div>
-        <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300 list-disc list-inside leading-relaxed">
-            <li>لینک اشتراک به‌صورت خودکار به‌روزرسانی می‌شود؛ برای دریافت جدیدترین سرورها، پروفایل را در کلاینت رفرش کنید.</li>
-            <li>استفاده از سرویس‌ها برای فعالیت‌های مخرب یا غیرقانونی مجاز نیست.</li>
+        <ul class="space-y-2 text-xs sm:text-sm text-slate-300 list-disc list-inside leading-relaxed">
+            <li>لینک‌های اشتراک کاملاً شخصی و مختص شماست؛ از انتشار عمومی آن خودداری کنید.</li>
+            <li>استفاده از سرویس برای فعالیت‌های مخرب، حملات DDOS یا اسپم ممنوع است.</li>
+            <li>سرورها به طور مداوم برای ارائه بهترین پینگ بروزرسانی می‌شوند.</li>
         </ul>
+        <div class="pt-2">
+            <button onclick="closeAllModals()" class="w-full py-2.5 rounded-xl bg-white/10 text-white font-bold text-xs">پذیرفتن و بستن</button>
+        </div>
     </div>
 
+    <!-- اسکریپت‌های مدیریت تعاملات و لودینگ ۵ ثانیه‌ای -->
     <script>
-        const SUB_URL = "https://raw.githubusercontent.com/freenetvt/sub-collector/refs/heads/main/singbox.json";
-        let fetchedJsonText = "";
+        const sampleJsonConfig = {
+            {
+  "log": {
+    "disabled": false,
+    "level": "warn",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "type": "https",
+        "tag": "dns-remote",
+        "server": "8.8.8.8",
+        "detour": "✅  Select"
+      },
+      {
+        "type": "udp",
+        "tag": "dns-direct",
+        "server": "8.8.8.8"
+      }
+    ],
+    "rules": [
+      {
+        "clash_mode": "Direct",
+        "server": "dns-direct"
+      },
+      {
+        "clash_mode": "Global",
+        "server": "dns-remote"
+      }
+    ],
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "address": [
+        "172.19.0.1/28"
+      ],
+      "mtu": 9000,
+      "auto_route": true,
+      "strict_route": true,
+      "stack": "mixed"
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "127.0.0.1",
+      "listen_port": 2334
+    },
+    {
+      "type": "socks",
+      "tag": "socks-in",
+      "listen": "127.0.0.1",
+      "listen_port": 2333
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "✅  Select",
+      "outbounds": [
+        "Best Ping 🚀",
+        "🌐 Freenetvt_1",
+        "🌐 Freenetvt_2",
+        "🌐 Freenetvt_3",
+        "🌐 Freenetvt_4",
+        "🌐 Freenetvt_5",
+        "🌐 Freenetvt_6",
+        "🌐 Freenetvt_7",
+        "🌐 Freenetvt_8",
+        "🌐 Freenetvt_9",
+        "🌐 Freenetvt_10",
+        "🌐 Freenetvt_11",
+        "🌐 Freenetvt_12",
+        "🌐 Freenetvt_13",
+        "🌐 Freenetvt_14",
+        "🇮🇹 Freenetvt",
+        "🌐 Freenetvt_15",
+        "🌐 Freenetvt_16",
+        "🌐 Freenetvt_17",
+        "🌐 Freenetvt_18",
+        "🌐 Freenetvt_19",
+        "🌐 Freenetvt_20",
+        "🌐 Freenetvt_21",
+        "🇮🇱 Freenetvt",
+        "🌐 Freenetvt_22",
+        "🌐 Freenetvt_23",
+        "🌐 Freenetvt_24",
+        "🌐 Freenetvt_25",
+        "🇺🇲 Freenetvt",
+        "🌐 Freenetvt_26",
+        "🌐 Freenetvt_27",
+        "🌐 Freenetvt_28",
+        "🌐 Freenetvt_29",
+        "🌐 Freenetvt_30",
+        "🌐 Freenetvt_31",
+        "🌐 Freenetvt_32",
+        "🌐 Freenetvt_33",
+        "🌐 Freenetvt_34",
+        "🌐 Freenetvt_35",
+        "🌐 Freenetvt_36",
+        "🌐 Freenetvt_37",
+        "🌐 Freenetvt_38",
+        "🌐 Freenetvt_39",
+        "🌐 Freenetvt_40",
+        "🌐 Freenetvt_41",
+        "🌐 Freenetvt_42",
+        "🌐 Freenetvt_43",
+        "🌐 Freenetvt_44",
+        "🌐 Freenetvt_45",
+        "🌐 Freenetvt_46",
+        "🌐 Freenetvt_47",
+        "🌐 Freenetvt_48",
+        "🌐 Freenetvt_49",
+        "🌐 Freenetvt_50",
+        "🌐 Freenetvt_51"
+      ],
+      "interrupt_exist_connections": false
+    },
+    {
+      "type": "urltest",
+      "tag": "Best Ping 🚀",
+      "outbounds": [
+        "🌐 Freenetvt_1",
+        "🌐 Freenetvt_2",
+        "🌐 Freenetvt_3",
+        "🌐 Freenetvt_4",
+        "🌐 Freenetvt_5",
+        "🌐 Freenetvt_6",
+        "🌐 Freenetvt_7",
+        "🌐 Freenetvt_8",
+        "🌐 Freenetvt_9",
+        "🌐 Freenetvt_10",
+        "🌐 Freenetvt_11",
+        "🌐 Freenetvt_12",
+        "🌐 Freenetvt_13",
+        "🌐 Freenetvt_14",
+        "🇮🇹 Freenetvt",
+        "🌐 Freenetvt_15",
+        "🌐 Freenetvt_16",
+        "🌐 Freenetvt_17",
+        "🌐 Freenetvt_18",
+        "🌐 Freenetvt_19",
+        "🌐 Freenetvt_20",
+        "🌐 Freenetvt_21",
+        "🇮🇱 Freenetvt",
+        "🌐 Freenetvt_22",
+        "🌐 Freenetvt_23",
+        "🌐 Freenetvt_24",
+        "🌐 Freenetvt_25",
+        "🇺🇲 Freenetvt",
+        "🌐 Freenetvt_26",
+        "🌐 Freenetvt_27",
+        "🌐 Freenetvt_28",
+        "🌐 Freenetvt_29",
+        "🌐 Freenetvt_30",
+        "🌐 Freenetvt_31",
+        "🌐 Freenetvt_32",
+        "🌐 Freenetvt_33",
+        "🌐 Freenetvt_34",
+        "🌐 Freenetvt_35",
+        "🌐 Freenetvt_36",
+        "🌐 Freenetvt_37",
+        "🌐 Freenetvt_38",
+        "🌐 Freenetvt_39",
+        "🌐 Freenetvt_40",
+        "🌐 Freenetvt_41",
+        "🌐 Freenetvt_42",
+        "🌐 Freenetvt_43",
+        "🌐 Freenetvt_44",
+        "🌐 Freenetvt_45",
+        "🌐 Freenetvt_46",
+        "🌐 Freenetvt_47",
+        "🌐 Freenetvt_48",
+        "🌐 Freenetvt_49",
+        "🌐 Freenetvt_50",
+        "🌐 Freenetvt_51"
+      ],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "30s",
+      "interrupt_exist_connections": false
+    },
+    {
+      "type": "direct",
+      "tag": "direct",
+      "domain_resolver": "dns-direct"
+    },
+    {
+      "tag": "🌐 Freenetvt_1",
+      "type": "shadowsocks",
+      "server": "158.173.20.208",
+      "server_port": 443,
+      "method": "aes-128-gcm",
+      "password": "shadowsocks"
+    },
+    {
+      "tag": "🌐 Freenetvt_2",
+      "type": "shadowsocks",
+      "server": "193.29.139.212",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj"
+    },
+    {
+      "tag": "🌐 Freenetvt_3",
+      "type": "shadowsocks",
+      "server": "193.29.139.147",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ"
+    },
+    {
+      "tag": "🌐 Freenetvt_4",
+      "type": "shadowsocks",
+      "server": "158.173.20.171",
+      "server_port": 443,
+      "method": "aes-128-gcm",
+      "password": "shadowsocks"
+    },
+    {
+      "tag": "🌐 Freenetvt_5",
+      "type": "shadowsocks",
+      "server": "47.254.169.3",
+      "server_port": 443,
+      "method": "2022-blake3-chacha20-poly1305",
+      "password": "8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y="
+    },
+    {
+      "tag": "🌐 Freenetvt_6",
+      "type": "shadowsocks",
+      "server": "8.211.38.49",
+      "server_port": 443,
+      "method": "2022-blake3-chacha20-poly1305",
+      "password": "8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y="
+    },
+    {
+      "tag": "🌐 Freenetvt_7",
+      "type": "shadowsocks",
+      "server": "193.29.139.234",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "4a2rfixophdjffa8KVA4Aa"
+    },
+    {
+      "tag": "🌐 Freenetvt_8",
+      "type": "shadowsocks",
+      "server": "152.53.1.57",
+      "server_port": 8388,
+      "method": "chacha20-ietf-poly1305",
+      "password": "AdawffFMHymlasRb0VOP3HFf7sTG5sJx"
+    },
+    {
+      "tag": "🌐 Freenetvt_9",
+      "type": "shadowsocks",
+      "server": "152.53.1.57",
+      "server_port": 8388,
+      "method": "chacha20-ietf-poly1305",
+      "password": "AdawffFMHymlasRb0VOP3HFf7sTG5sJx"
+    },
+    {
+      "tag": "🌐 Freenetvt_10",
+      "type": "shadowsocks",
+      "server": "dash.chiex.ir",
+      "server_port": 1349,
+      "method": "chacha20-ietf-poly1305",
+      "password": "pFlEjR_10osoxyR2CnNIhUMpAy4CzfXr"
+    },
+    {
+      "tag": "🌐 Freenetvt_11",
+      "type": "shadowsocks",
+      "server": "47.254.143.251",
+      "server_port": 443,
+      "method": "2022-blake3-chacha20-poly1305",
+      "password": "8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y="
+    },
+    {
+      "tag": "🌐 Freenetvt_12",
+      "type": "shadowsocks",
+      "server": "107.161.160.28",
+      "server_port": 8388,
+      "method": "aes-256-gcm",
+      "password": "itzvpn@321"
+    },
+    {
+      "tag": "🌐 Freenetvt_13",
+      "type": "shadowsocks",
+      "server": "57.131.27.21",
+      "server_port": 8388,
+      "method": "aes-256-gcm",
+      "password": "itzvpn@321"
+    },
+    {
+      "tag": "🌐 Freenetvt_14",
+      "type": "shadowsocks",
+      "server": "185.164.175.81",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🇮🇹 Freenetvt",
+      "type": "shadowsocks",
+      "server": "185.164.175.81",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_15",
+      "type": "shadowsocks",
+      "server": "185.164.175.81",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_16",
+      "type": "shadowsocks",
+      "server": "185.164.175.81",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_17",
+      "type": "shadowsocks",
+      "server": "57.129.113.16",
+      "server_port": 8388,
+      "method": "chacha20-ietf-poly1305",
+      "password": "NcAXc0UZI6yQJE1p8QmOv8"
+    },
+    {
+      "tag": "🌐 Freenetvt_18",
+      "type": "shadowsocks",
+      "server": "193.108.116.98",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_19",
+      "type": "shadowsocks",
+      "server": "185.164.175.81",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_20",
+      "type": "shadowsocks",
+      "server": "79.127.184.104",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_21",
+      "type": "shadowsocks",
+      "server": "23.157.88.43",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🇮🇱 Freenetvt",
+      "type": "shadowsocks",
+      "server": "77.221.132.206",
+      "server_port": 24759,
+      "method": "chacha20-ietf-poly1305",
+      "password": "hCgbUnMaoAfSgvE8IKdnGu"
+    },
+    {
+      "tag": "🌐 Freenetvt_22",
+      "type": "shadowsocks",
+      "server": "23.166.88.127",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_23",
+      "type": "shadowsocks",
+      "server": "77.221.132.206",
+      "server_port": 24759,
+      "method": "chacha20-ietf-poly1305",
+      "password": "hCgbUnMaoAfSgvE8IKdnGu"
+    },
+    {
+      "tag": "🌐 Freenetvt_24",
+      "type": "shadowsocks",
+      "server": "dns22.m3hrzd.ir",
+      "server_port": 1348,
+      "method": "chacha20-ietf-poly1305",
+      "password": "pFlEjR_10osoxyR2CnNIhUMpAy4CzfXr"
+    },
+    {
+      "tag": "🌐 Freenetvt_25",
+      "type": "shadowsocks",
+      "server": "136.148.77.250",
+      "server_port": 8388,
+      "method": "aes-256-gcm",
+      "password": "itzvpn@321"
+    },
+    {
+      "tag": "🇺🇲 Freenetvt",
+      "type": "shadowsocks",
+      "server": "67.220.73.247",
+      "server_port": 443,
+      "method": "chacha20-ietf-poly1305",
+      "password": "DGjtV63aPW3E"
+    },
+    {
+      "tag": "🌐 Freenetvt_26",
+      "type": "shadowsocks",
+      "server": "213.176.92.148",
+      "server_port": 40647,
+      "method": "aes-256-gcm",
+      "password": "DgMywXKqojHXeuXY8hOJaYGPFcjweCIJeD5cdg/cUUY="
+    },
+    {
+      "tag": "🌐 Freenetvt_27",
+      "type": "shadowsocks",
+      "server": "135.148.42.13",
+      "server_port": 8388,
+      "method": "aes-256-gcm",
+      "password": "itzvpn@321"
+    },
+    {
+      "tag": "🌐 Freenetvt_28",
+      "type": "shadowsocks",
+      "server": "15.204.246.108",
+      "server_port": 8881,
+      "method": "aes-256-gcm",
+      "password": "kDWvXYZoTBcGkC4"
+    },
+    {
+      "tag": "🌐 Freenetvt_29",
+      "type": "shadowsocks",
+      "server": "48.103.218.77",
+      "server_port": 18443,
+      "method": "aes-256-gcm",
+      "password": "5mKjXAGrliIAlYwWDeFzkCEMIgQdFQLe"
+    },
+    {
+      "tag": "🌐 Freenetvt_30",
+      "type": "shadowsocks",
+      "server": "213.176.92.148",
+      "server_port": 40647,
+      "method": "aes-256-gcm",
+      "password": "DgMywXKqojHXeuXY8hOJaYGPFcjweCIJeD5cdg/cUUY="
+    },
+    {
+      "tag": "🌐 Freenetvt_31",
+      "type": "shadowsocks",
+      "server": "138.197.89.234",
+      "server_port": 28960,
+      "method": "chacha20-ietf-poly1305",
+      "password": "DZRy4Q3QH0jUGfKFl2jDCZ"
+    },
+    {
+      "tag": "🌐 Freenetvt_32",
+      "type": "shadowsocks",
+      "server": "185.215.132.9",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_33",
+      "type": "shadowsocks",
+      "server": "149.40.57.135",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_34",
+      "type": "shadowsocks",
+      "server": "149.88.106.73",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_35",
+      "type": "shadowsocks",
+      "server": "149.40.57.133",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_36",
+      "type": "shadowsocks",
+      "server": "15.204.247.206",
+      "server_port": 4444,
+      "method": "aes-256-gcm",
+      "password": "pKEW8JPByTVTLtM"
+    },
+    {
+      "tag": "🌐 Freenetvt_37",
+      "type": "shadowsocks",
+      "server": "149.88.107.74",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_38",
+      "type": "shadowsocks",
+      "server": "38.121.43.18",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_39",
+      "type": "shadowsocks",
+      "server": "149.88.107.74",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_40",
+      "type": "shadowsocks",
+      "server": "149.88.106.74",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_41",
+      "type": "shadowsocks",
+      "server": "149.88.107.74",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_42",
+      "type": "shadowsocks",
+      "server": "149.88.107.47",
+      "server_port": 19999,
+      "method": "aes-256-gcm",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    },
+    {
+      "tag": "🌐 Freenetvt_43",
+      "type": "shadowsocks",
+      "server": "129.150.59.74",
+      "server_port": 14384,
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "sUR6Ny8Y6PSvHhl/DUxconwxg6VZyFdsdfaVCvEatJo=:7bTEhHgpErKiRjE1ega+H6pcpJsNLFB0CjQseujAHrA="
+    },
+    {
+      "tag": "🌐 Freenetvt_44",
+      "type": "shadowsocks",
+      "server": "15.204.246.111",
+      "server_port": 5498,
+      "method": "aes-256-gcm",
+      "password": "lGqs95QkFHo2NV"
+    },
+    {
+      "tag": "🌐 Freenetvt_45",
+      "type": "shadowsocks",
+      "server": "jpa.123069.xyz",
+      "server_port": 53758,
+      "method": "aes-128-gcm",
+      "password": "Bwlqh7GcFB"
+    },
+    {
+      "tag": "🌐 Freenetvt_46",
+      "type": "shadowsocks",
+      "server": "168.138.205.100",
+      "server_port": 53758,
+      "method": "aes-128-gcm",
+      "password": "Bwlqh7GcFB"
+    },
+    {
+      "tag": "🌐 Freenetvt_47",
+      "type": "shadowsocks",
+      "server": "145.79.177.201",
+      "server_port": 8388,
+      "method": "aes-256-gcm",
+      "password": "itzvpn@321"
+    },
+    {
+      "tag": "🌐 Freenetvt_48",
+      "type": "shadowsocks",
+      "server": "84.247.155.196",
+      "server_port": 443,
+      "method": "aes-256-gcm",
+      "password": "3eOFeNssde7PYYMv"
+    },
+    {
+      "tag": "🌐 Freenetvt_49",
+      "type": "shadowsocks",
+      "server": "194.87.233.93",
+      "server_port": 46190,
+      "method": "chacha20-ietf-poly1305",
+      "password": "2Ef8X21WALqK7H6N8A78j5WYtzZ999PP8rF8DaLsb5LLyDLQpf5dGVAjdA3mj1wudigKXTt5heYU9jmaBbfxXBJJAqhPHkxe"
+    },
+    {
+      "tag": "🌐 Freenetvt_50",
+      "type": "shadowsocks",
+      "server": "156.67.120.205",
+      "server_port": 51628,
+      "method": "chacha20-ietf-poly1305",
+      "password": "29ZZXVa34x7sC48w9FKQ54UKHiJJGTVgKFppBRgviLrVCAYVVyKZdD3obbpjCyk31V5b2G2d7xzqmaPBFdcheCVB9UQ4ZghF"
+    },
+    {
+      "tag": "🌐 Freenetvt_51",
+      "type": "shadowsocks",
+      "server": "47.245.170.82",
+      "server_port": 443,
+      "method": "2022-blake3-chacha20-poly1305",
+      "password": "8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y="
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "ip_cidr": "172.19.0.2",
+        "action": "hijack-dns"
+      },
+      {
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "clash_mode": "Global",
+        "outbound": "✅  Select"
+      },
+      {
+        "action": "sniff"
+      },
+      {
+        "protocol": "dns",
+        "action": "hijack-dns"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      },
+      {
+        "network": "udp",
+        "action": "reject"
+      }
+    ],
+    "auto_detect_interface": true,
+    "final": "✅  Select"
+  },
+  "ntp": {
+    "enabled": true,
+    "server": "time.cloudflare.com",
+    "server_port": 123,
+    "domain_resolver": "dns-direct",
+    "interval": "30m",
+    "write_to_system": false
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "store_fakeip": true
+    },
+    "clash_api": {
+      "external_controller": "127.0.0.1:9090",
+      "external_ui": "ui",
+      "default_mode": "Rule",
+      "external_ui_download_url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+      "external_ui_download_detour": "direct"
+    }
+  }
+    }
 
-        lucide.createIcons();
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.getElementById('jsonCodePreview').textContent = JSON.stringify(sampleJsonConfig, null, 2);
 
-        function showToast(message) {
-            const toast = document.getElementById("toastNotification");
-            const toastMsg = document.getElementById("toastMessage");
-            toastMsg.textContent = message;
-            toast.classList.remove("opacity-0", "translate-y-4");
-            toast.classList.add("opacity-100", "translate-y-0");
-            setTimeout(() => {
-                toast.classList.remove("opacity-100", "translate-y-0");
-                toast.classList.add("opacity-0", "translate-y-4");
-            }, 2500);
+            // تنظیم لودینگ ۵ ثانیه‌ای (۵۰۰۰ میلی‌ثانیه)
+            let progress = 0;
+            const progressBar = document.getElementById('progressBar');
+            const loadingState = document.getElementById('loadingState');
+            const readyState = document.getElementById('readyState');
+
+            const totalTime = 5000; // ۵ ثانیه
+            const intervalTime = 100; // هر ۱۰۰ میلی‌ثانیه آپدیت شود
+            const increment = (intervalTime / totalTime) * 100;
+
+            const interval = setInterval(() => {
+                progress += increment;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loadingState.classList.add('hidden');
+                        readyState.classList.remove('hidden');
+                    }, 200);
+                }
+                progressBar.style.width = progress + '%';
+            }, intervalTime);
+        });
+
+        function switchTab(tab) {
+            const subBtn = document.getElementById('tabSubBtn');
+            const jsonBtn = document.getElementById('tabJsonBtn');
+            const subContent = document.getElementById('subContent');
+            const jsonContent = document.getElementById('jsonContent');
+
+            if (tab === 'sub') {
+                subBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-sky-500 text-white shadow transition-all";
+                jsonBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all";
+                subContent.classList.remove('hidden');
+                jsonContent.classList.add('hidden');
+            } else {
+                jsonBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-sky-500 text-white shadow transition-all";
+                subBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all";
+                jsonContent.classList.remove('hidden');
+                subContent.classList.add('hidden');
+            }
         }
 
         function copySubLink() {
-            const input = document.getElementById("subUrlInput");
-            const textToCopy = input ? input.value : SUB_URL;
-            navigator.clipboard?.writeText(textToCopy).catch(() => {});
-            if (input) {
-                input.select();
-                document.execCommand?.("copy");
-            }
-            showToast("لینک اشتراک Sing-box کپی شد!");
+            const input = document.getElementById('subUrlInput');
+            input.select();
+            input.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(input.value);
+            showToast("لینک اشتراک با موفقیت کپی شد!");
         }
 
         function copyRawJson() {
-            const codeEl = document.getElementById("jsonCodePreview");
-            const content = codeEl ? codeEl.textContent : fetchedJsonText;
-            if (!content) return;
-            navigator.clipboard?.writeText(content).catch(() => {});
-            showToast("کد کانفیگ JSON کپی شد!");
+            const jsonText = JSON.stringify(sampleJsonConfig, null, 2);
+            navigator.clipboard.writeText(jsonText);
+            showToast("کد کانفیگ JSON با موفقیت کپی شد!");
         }
 
         function downloadJsonFile() {
-            const dataStr = fetchedJsonText || JSON.stringify({ subscription_url: SUB
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(sampleJsonConfig, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "Freenetvt-Singbox.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            showToast("فایل کانفیگ با موفقیت دانلود شد!");
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.remove('opacity-0', 'translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-4');
+            }, 3000);
+        }
+
+        function openModal(modalId) {
+            document.getElementById('modalBackdrop').classList.remove('hidden');
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeAllModals() {
+            document.getElementById('modalBackdrop').classList.add('hidden');
+            ['iosModal', 'androidModal', 'guideModal', 'aboutModal', 'rulesModal'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+        }
+    </script>
+</body>
+    </html>

@@ -2,73 +2,154 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- تنظیم رنگ نوار مرورگر و موبایل (هماهنگ با پس‌زمینه پنل) -->
-    <meta name="theme-color" content="#080305">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <!-- تنظیم رنگ نوار مرورگر و موبایل (هماهنگ با رنگ پنل) -->
+    <meta name="theme-color" content="#140912">
+    <meta name="msapplication-navbutton-color" content="#140912">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <title>𝑭𝒓𝒆𝒆𝒏𝒆𝒕𝒗𝒕 Panel</title>
     <style>
         :root {
-            --bg-color: #080305;
-            --card-bg: rgba(30, 10, 18, 0.82);
-            --card-border-1: rgba(220, 20, 60, 0.6);
-            --card-border-2: rgba(0, 210, 255, 0.4);
+            --bg-color: #140912;
+            --bar-color: #180b16;
+            --card-bg: rgba(38, 18, 32, 0.56);
+            --inner-card-bg: rgba(20, 14, 28, 0.58);
+            --card-border-1: rgba(251, 113, 133, 0.68);
+            --card-border-2: rgba(56, 189, 248, 0.55);
             --text-main: #ffffff;
-            --text-sub: #c8b2bd;
-            --button-bg: rgba(255, 255, 255, 0.08);
-            --button-border: rgba(255, 255, 255, 0.2);
-            --button-hover: rgba(0, 210, 255, 0.25);
-            --accent-cherry: #dc143c;
-            --accent-blue: #00d2ff;
-            --accent-glow: rgba(220, 20, 60, 0.5);
-            --accent-green: #00ff66;
+            --text-sub: #e2d5de;
+            --button-bg: rgba(255, 255, 255, 0.11);
+            --button-border: rgba(255, 255, 255, 0.22);
+            --button-hover: rgba(56, 189, 248, 0.25);
+            --accent-cherry: #fb7185;
+            --accent-cherry-deep: #e11d48;
+            --accent-blue: #38bdf8;
+            --accent-glow: rgba(251, 113, 133, 0.34);
+            --electric-glow: rgba(56, 189, 248, 0.3);
+            --accent-green: #22ff77;
         }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: Vazirmatn, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
+
+        html {
+            background-color: var(--bar-color);
+        }
+
         body {
-            background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 15% 20%, rgba(128, 0, 32, 0.65) 0%, transparent 45%), 
-                              radial-gradient(circle at 85% 80%, rgba(220, 20, 60, 0.5) 0%, transparent 40%), 
-                              radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.18) 0%, transparent 60%), 
-                              linear-gradient(to bottom, rgba(8, 3, 5, 0.88), rgba(8, 3, 5, 0.95));
+            background-color: var(--bar-color);
+            background-image:
+                radial-gradient(circle at 15% 15%, rgba(251, 113, 133, 0.32) 0%, transparent 48%),
+                radial-gradient(circle at 85% 18%, rgba(56, 189, 248, 0.28) 0%, transparent 48%),
+                radial-gradient(circle at 50% 85%, rgba(225, 29, 72, 0.22) 0%, transparent 58%),
+                linear-gradient(to bottom, rgba(24, 11, 22, 0.72), rgba(20, 9, 18, 0.84));
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             color: var(--text-main);
             display: flex;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 36px 18px 44px;
             min-height: 100vh;
             position: relative;
+            overflow-x: hidden;
         }
+
+        /* نوارهای ثابت بالا و پایین برای یکدستی رنگ در محدوده ایمن نمایشگر */
+        .chrome-edge-top,
+        .chrome-edge-bottom {
+            position: fixed;
+            left: 0;
+            right: 0;
+            background: var(--bar-color);
+            pointer-events: none;
+            z-index: 900;
+        }
+
+        .chrome-edge-top {
+            top: 0;
+            height: env(safe-area-inset-top, 0px);
+            box-shadow: 0 2px 14px rgba(24, 11, 22, 0.85);
+        }
+
+        .chrome-edge-bottom {
+            bottom: 0;
+            height: max(10px, env(safe-area-inset-bottom, 10px));
+            border-top: 1px solid rgba(251, 113, 133, 0.22);
+            box-shadow: 0 -4px 18px rgba(24, 11, 22, 0.9);
+        }
+
+        /* هاله‌های روشن و نرم پس‌زمینه */
+        .ambient-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(75px);
+            opacity: 0.42;
+            animation: floatOrb 12s ease-in-out infinite alternate;
+        }
+
+        .orb-cherry {
+            width: 280px;
+            height: 280px;
+            background: var(--accent-cherry);
+            top: -65px;
+            right: -55px;
+        }
+
+        .orb-blue {
+            width: 320px;
+            height: 320px;
+            background: var(--accent-blue);
+            bottom: -85px;
+            left: -65px;
+            animation-delay: -5s;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(24px, 28px) scale(1.1); }
+        }
+
         .container {
             width: 100%;
-            max-width: 480px;
+            max-width: 520px;
             display: flex;
             flex-direction: column;
             gap: 22px;
         }
-        /* باکس اصلی پنل (بدون حاشیه و لبه) */
+
+        /* باکس اصلی پنل با شفافیت روشن‌تر */
         .main-panel-box {
             background: var(--card-bg);
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 28px;
-            padding: 28px 20px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.85), 
-                        0 0 25px rgba(220, 20, 60, 0.2), 
-                        0 0 15px rgba(0, 210, 255, 0.1);
+            padding: 28px 18px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.55),
+                0 0 24px var(--accent-glow),
+                0 0 16px var(--electric-glow);
             display: flex;
             flex-direction: column;
             gap: 24px;
         }
+
         /* ۱. هدر اصلی پنل */
         .panel-header {
             display: flex;
@@ -77,35 +158,39 @@
             text-align: center;
             padding-bottom: 10px;
         }
-        /* عکس پروفایل تلگرام همراه با نقطه آنلاین (بدون لبه و حاشیه اضافه) */
+
         .logo-wrapper {
             position: relative;
             margin-bottom: 14px;
         }
+
         .main-logo {
             width: 96px;
             height: 96px;
-            background: rgba(30, 10, 25, 0.9);
-            border: none;
+            background: rgba(38, 18, 36, 0.78);
+            border: 1.5px solid var(--card-border-2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 25px var(--accent-glow), 0 0 15px var(--accent-blue);
+            box-shadow: 0 0 25px var(--accent-glow), 0 0 16px var(--electric-glow);
             text-decoration: none;
             overflow: hidden;
             transition: all 0.3s ease;
         }
+
         .main-logo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+
         .main-logo:hover {
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 0 35px var(--accent-blue);
+            border-color: var(--accent-cherry);
+            box-shadow: 0 0 32px var(--accent-glow), 0 0 22px var(--electric-glow);
         }
-        /* نقطه آنلاین سبز/آبی چشمک‌زن */
+
         .online-dot {
             position: absolute;
             bottom: 4px;
@@ -113,85 +198,95 @@
             width: 18px;
             height: 18px;
             background-color: var(--accent-green);
-            border: 3px solid var(--bg-color);
+            border: 3px solid var(--bar-color);
             border-radius: 50%;
             box-shadow: 0 0 10px var(--accent-green);
             animation: online-pulse 1.5s infinite ease-in-out;
         }
+
         @keyframes online-pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(0, 255, 102, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 255, 119, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(34, 255, 119, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 255, 119, 0); }
         }
 
         .panel-header h1 {
             font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(220, 20, 60, 0.6), 0 0 20px rgba(0, 210, 255, 0.4);
+            text-shadow: 0 0 12px rgba(251, 113, 133, 0.45), 0 0 20px rgba(56, 189, 248, 0.35);
             display: flex;
             flex-direction: column;
             gap: 2px;
         }
+
         .panel-header h1 .panel-title-top {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             color: var(--accent-blue);
             letter-spacing: 2px;
         }
+
         .panel-header h1 .panel-title-bottom {
             font-size: 1.6rem;
+            background: linear-gradient(90deg, #ffe4e6, var(--accent-cherry), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
         }
+
         .green-lightning {
+            -webkit-text-fill-color: var(--accent-green);
             color: var(--accent-green);
             font-size: 1.5rem;
             animation: pulse-glow 1.2s infinite alternate ease-in-out;
             display: inline-block;
             filter: drop-shadow(0 0 8px var(--accent-green));
         }
+
         @keyframes pulse-glow {
-            0% { opacity: 0.3; transform: scale(0.9); filter: drop-shadow(0 0 2px var(--accent-green)); }
+            0% { opacity: 0.4; transform: scale(0.92); filter: drop-shadow(0 0 3px var(--accent-green)); }
             100% { opacity: 1; transform: scale(1.2); filter: drop-shadow(0 0 12px var(--accent-green)); }
         }
+
         .panel-header p {
             font-size: 0.85rem;
             color: var(--text-sub);
             margin-top: 6px;
         }
 
-        /* ساختار دو ستونه گرید کلاینت‌ها */
+        /* ساختار دو ستونه گرید کلاینت‌ها (۶ کارت) */
         .clients-grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 14px;
         }
 
-        /* لبه اول (برجسته و بیرونی برای هر کارت) */
         .client-outer-card {
-            background: rgba(220, 20, 60, 0.04);
-            border: 2px solid var(--card-border-1);
+            background: rgba(251, 113, 133, 0.08);
+            border: 1.5px solid var(--card-border-1);
             border-radius: 20px;
             padding: 4px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.15);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .client-outer-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(220, 20, 60, 0.3), inset 0 1px 3px rgba(255, 255, 255, 0.25);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
-        /* لبه دوم (چسبیده به لبه اول و کمی پایین‌تر و داخلی‌تر) */
+        .client-outer-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-cherry);
+            box-shadow: 0 10px 24px var(--accent-glow), inset 0 1px 3px rgba(255, 255, 255, 0.28);
+        }
+
         .client-inner-card {
             direction: ltr;
             position: relative;
-            background: rgba(15, 5, 10, 0.75);
+            background: var(--inner-card-bg);
             border: 1.5px solid var(--card-border-2);
             border-radius: 16px;
             padding: 10px 8px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
         }
 
         .card-header-link {
@@ -204,47 +299,53 @@
             padding: 2px;
             border-radius: 8px;
         }
+
         .logo-box {
             width: 36px;
             height: 36px;
             min-width: 36px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.11);
+            border: 1px solid rgba(56, 189, 248, 0.35);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
         }
+
         .logo-box img {
             width: 75%;
             height: 75%;
             object-fit: contain;
         }
+
         .title-area {
             flex-grow: 1;
         }
+
         .title-area h2 {
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 600;
             color: var(--text-main);
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
+
         .title-area h2::after {
             content: '↗';
             font-size: 0.85rem;
             color: var(--accent-blue);
         }
+
         .title-area p {
             font-size: 0.65rem;
-            color: var(--accent-blue);
+            color: #7dd3fc;
             margin-top: 1px;
             font-family: Vazirmatn, sans-serif;
             font-weight: 500;
         }
-        
+
         .download-gif-box {
             position: absolute;
             top: -10px;
@@ -255,16 +356,16 @@
             align-items: center;
             z-index: 2;
         }
+
         .download-gif-box img {
             width: 15px !important;
             height: 15px !important;
             object-fit: contain;
             padding: 2px;
-            background: rgba(220, 20, 60, 0.95);
+            background: linear-gradient(135deg, var(--accent-cherry), var(--accent-cherry-deep));
             border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 5px;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 0 6px rgba(220, 20, 60, 0.6);
+            box-shadow: 0 0 8px var(--accent-glow);
         }
 
         .platforms-grid {
@@ -273,6 +374,7 @@
             gap: 6px;
             margin-top: 4px;
         }
+
         .platform-btn {
             position: relative;
             display: flex;
@@ -290,58 +392,65 @@
             font-weight: 600;
             transition: all 0.2s ease;
         }
+
         .platform-btn img {
             width: 24px;
             height: 24px;
             object-fit: contain;
-            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.4));
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
         }
+
         .platform-btn:hover {
             background: var(--button-hover);
             border-color: var(--accent-blue);
-            color: var(--accent-blue);
+            color: #7dd3fc;
             transform: translateY(-2px);
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+            box-shadow: 0 0 12px var(--electric-glow);
         }
+
         .security-badge {
             grid-column: span 2;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 210, 255, 0.06);
-            border: 1px dashed rgba(0, 210, 255, 0.3);
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px dashed rgba(56, 189, 248, 0.45);
             border-radius: 8px;
             padding: 4px;
             font-size: 0.65rem;
-            color: var(--text-sub);
+            color: #e0f2fe;
             text-align: center;
         }
-        
+
         /* بخش راهنما */
         .info-section {
             direction: rtl;
         }
+
         .info-section h3 {
             font-size: 1.1rem;
             margin-bottom: 14px;
-            color: var(--accent-blue);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #7dd3fc;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.16);
             padding-bottom: 8px;
         }
+
         .steps-list {
             display: flex;
             flex-direction: column;
             gap: 14px;
         }
+
         .step-item {
             display: flex;
             gap: 14px;
             align-items: flex-start;
         }
+
         .step-number {
-            background: rgba(0, 210, 255, 0.15);
-            border: 1px solid rgba(0, 210, 255, 0.4);
-            color: var(--accent-blue);
+            background: linear-gradient(135deg, rgba(251, 113, 133, 0.28), rgba(56, 189, 248, 0.28));
+            border: 1px solid rgba(56, 189, 248, 0.5);
+            color: #bae6fd;
             font-size: 0.85rem;
             font-weight: bold;
             width: 32px;
@@ -352,25 +461,27 @@
             justify-content: center;
             flex-shrink: 0;
         }
+
         .step-text h4 {
             font-size: 0.95rem;
             margin-bottom: 4px;
             color: #ffffff;
         }
+
         .step-text p {
             font-size: 0.83rem;
             color: var(--text-sub);
             line-height: 1.5;
         }
 
-        /* دکمه درباره ما (بدون حاشیه و لبه اضافی) */
+        /* دکمه درباره ما */
         .about-btn {
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: none;
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(251, 113, 133, 0.38);
             padding: 12px 16px;
             border-radius: 14px;
             color: var(--text-main);
@@ -380,9 +491,11 @@
             transition: all 0.2s ease;
             text-align: right;
         }
+
         .about-btn:hover {
             background: var(--button-hover);
-            color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: #7dd3fc;
         }
 
         /* استایل پنجره پاپ‌آپ (Modal) درباره ما */
@@ -392,8 +505,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(10px);
+            background: rgba(12, 6, 14, 0.68);
+            backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -402,37 +515,43 @@
             visibility: hidden;
             transition: all 0.3s ease;
         }
+
         .modal-overlay.active {
             opacity: 1;
             visibility: visible;
         }
+
         .modal-box {
-            background: var(--card-bg);
+            background: rgba(34, 16, 30, 0.88);
             border: 1.5px solid var(--accent-blue);
             border-radius: 24px;
             padding: 24px;
             width: 90%;
             max-width: 400px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 210, 255, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.65), 0 0 22px var(--electric-glow);
             transform: translateY(20px);
             transition: transform 0.3s ease;
             direction: rtl;
         }
+
         .modal-overlay.active .modal-box {
             transform: translateY(0);
         }
+
         .modal-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 14px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.16);
             padding-bottom: 10px;
         }
+
         .modal-header h3 {
-            color: var(--accent-blue);
+            color: #7dd3fc;
             font-size: 1.1rem;
         }
+
         .close-modal-btn {
             background: none;
             border: none;
@@ -441,44 +560,17 @@
             cursor: pointer;
             transition: color 0.2s;
         }
+
         .close-modal-btn:hover {
             color: var(--accent-cherry);
         }
+
         .modal-content p {
             font-size: 0.9rem;
             color: var(--text-sub);
             line-height: 1.7;
         }
 
-        /* شناور تلگرام */
-        .floating-telegram {
-            position: fixed;
-            bottom: 24px;
-            left: 24px;
-            width: 50px;
-            height: 50px;
-            background: rgba(36, 161, 222, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-        }
-        .floating-telegram svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
-        }
-        .floating-telegram:hover {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 210, 255, 0.4);
-        }
         /* فوتر */
         .panel-footer {
             text-align: center;
@@ -488,12 +580,13 @@
             align-items: center;
             gap: 14px;
         }
+
         .footer-github-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, rgba(251, 113, 133, 0.22), rgba(56, 189, 248, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.22);
             padding: 10px 20px;
             border-radius: 14px;
             color: var(--text-main);
@@ -502,17 +595,21 @@
             font-weight: 600;
             transition: all 0.2s ease;
         }
+
         .footer-github-link svg {
             width: 20px;
             height: 20px;
             fill: currentColor;
         }
+
         .footer-github-link:hover {
-            background: rgba(0, 210, 255, 0.2);
+            background: rgba(56, 189, 248, 0.24);
             border-color: var(--accent-blue);
-            color: var(--accent-blue);
+            color: #7dd3fc;
             transform: translateY(-2px);
+            box-shadow: 0 0 16px var(--electric-glow);
         }
+
         .footer-links {
             display: flex;
             gap: 12px;
@@ -520,29 +617,51 @@
             justify-content: center;
             flex-wrap: wrap;
         }
+
         .footer-links a {
             color: var(--text-sub);
             text-decoration: none;
             font-size: 0.8rem;
             transition: color 0.2s ease;
         }
+
         .footer-links a:hover {
-            color: var(--accent-blue);
+            color: #7dd3fc;
         }
+
         .copyright {
             font-size: 0.78rem;
             color: var(--text-sub);
             direction: ltr;
         }
+
+        @media (max-width: 420px) {
+            .clients-grid-container {
+                gap: 10px;
+            }
+            .client-inner-card {
+                padding: 8px 6px;
+            }
+            .title-area h2 {
+                font-size: 0.82rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="chrome-edge-top" aria-hidden="true"></div>
+    <div class="chrome-edge-bottom" aria-hidden="true"></div>
+
+    <div class="ambient-bg">
+        <div class="orb orb-cherry"></div>
+        <div class="orb orb-blue"></div>
+    </div>
+
     <div class="container">
         <!-- کادر اصلی کل پنل -->
         <div class="main-panel-box">
             <!-- ۱. هدر اصلی پنل -->
             <header class="panel-header">
-                <!-- لوگوی تلگرام به همراه نقطه آنلاین سبز/آبی -->
                 <div class="logo-wrapper">
                     <a href="https://t.me/YOUR_CHANNEL_USERNAME" class="main-logo" target="_blank" aria-label="Telegram Channel">
                         <img src="YOUR_TELEGRAM_PROFILE_IMAGE.jpg" alt="Telegram Channel Profile">
@@ -552,16 +671,16 @@
                 <h1>
                     <span class="panel-title-top">Panel</span>
                     <span class="panel-title-bottom">
-                        𝔽ℝ𝔼𝔼ℕ𝔼𝕋𝕍𝕋                      
+                        𝔽ℝ𝔼𝔼ℕ𝔼𝕋𝕍𝕋
                         <span class="green-lightning">⚡</span>
                     </span>
                 </h1>
                 <p>ساخته شده توسط کانتال تلگرامی freenetvt Hub</p>
             </header>
 
-            <!-- کلاینت‌ها (دو ستونه با دو لایه قاب مجزا برای هر کارت) -->
+            <!-- کلاینت‌ها (دو ستونه - ۶ کارت) -->
             <div class="clients-grid-container">
-                
+
                 <!-- ۱. کارت Sing-box -->
                 <div class="client-outer-card">
                     <div class="client-inner-card">
@@ -683,7 +802,7 @@
                                 <span>Windows</span>
                             </a>
                             <a href="#" class="platform-btn">
-                                <img src="logo/linux.jpg" alt="Linux">
+                                <img src="linux.jpg" alt="Linux">
                                 <span>Linux</span>
                             </a>
                             <div class="security-badge">امن و سریع</div>
@@ -715,48 +834,92 @@
                                 <div class="download-gif-box">
                                     <img src="logo/download.gif" alt="Download Anim">
                                 </div>
-                                <img src="logo/app_store_2.app_store.POSTT_GETT /666 HTTP/1.1
-Host: skype.com 
-User-Agent: illuminat.tm
-Upgrade: websocket
-TCP_NODLAY: true
-TCP_FASTOPEN: true
-TCP_QUICKACK: true
-Connection: Keep-Alive, Upgrade
-Keep-Alive: timeout=10, max=1000
-Proxy-Connection: Keep-Alive
-Accept-Encoding: gzip, deflate, br
+                                <img src="logo/app_store.png" alt="iOS">
+                                <span>iOS</span>
+                            </a>
+                            <a href="#" class="platform-btn">
+                                <div class="download-gif-box">
+                                    <img src="logo/download.gif" alt="Download Anim">
+                                </div>
+                                <img src="windows.jpg" alt="Windows">
+                                <span>Windows</span>
+                            </a>
+                            <a href="#" class="platform-btn">
+                                <img src="linux.jpg" alt="Linux">
+                                <span>Linux</span>
+                            </a>
+                            <div class="security-badge">امن و سریع</div>
+                        </div>
+                    </div>
+                </div>
 
-GET / HTTP/1.1
-Host: unpkg.com
-Expect: 100-continue
+                <!-- ۵. کارت Npvtunnel -->
+                <div class="client-outer-card">
+                    <div class="client-inner-card">
+                        <a href="npvtunnel.html" class="card-header-link" target="_blank">
+                            <div class="logo-box">
+                                <img src="logo/npvtunnel.png" alt="Npvtunnel Logo">
+                            </div>
+                            <div class="title-area">
+                                <h2>Npvtunnel</h2>
+                                <p>ورود به پنل</p>
+                            </div>
+                        </a>
+                        <div class="platforms-grid">
+                            <a href="#" class="platform-btn">
+                                <div class="download-gif-box">
+                                    <img src="logo/download.gif" alt="Download Anim">
+                                </div>
+                                <img src="logo/android.png" alt="Android">
+                                <span>Android</span>
+                            </a>
+                            <a href="#" class="platform-btn">
+                                <div class="download-gif-box">
+                                    <img src="logo/download.gif" alt="Download Anim">
+                                </div>
+                                <img src="logo/app_store.png" alt="iOS">
+                                <span>iOS</span>
+                            </a>
+                            <a href="#" class="platform-btn">
+                                <div class="download-gif-box">
+                                    <img src="windows.jpg" alt="Windows">
+                                </div>
+                                <span>Windows</span>
+                            </a>
+                            <a href="#" class="platform-btn">
+                                <img src="linux.jpg" alt="Linux">
+                                <span>Linux</span>
+                            </a>
+                            <div class="security-badge">امن و سریع</div>
+                        </div>
+                    </div>
+                </div>
 
-GET-PUT-POST // HTTP/1.1
-Host: zendesk.medallia.com
-Expect: 100-continue
-Upgrade: websocket
-User-Agent: python-requests/2.26.0
-
-PUT // HTTP/1.1
-Host: www.speedtest.net
-Expect: 100-continue
-
-GET / HTTP/1.1
-Host: npmjs.com
-User-Agent: curl/7.68.0
-Connection: keep-alive
-Keep-Alive: timeout=10, max=50
-Accept: */*
-
-GET-PUT-POST // HTTP/1.1[crlf]Host: developers.cloudflare.com[crlf]Expect: 100-continue[crlf]Upgrade: websocket[crlf]User-Agent: Googlebot/2.1 (+http://www.google.com/bot.html)[crlf][crlf]
-
-GET / HTTP/1.1
-Host: www.speedtest.net
-Connection: Upgrade
-User-Agent: [ua]
-Upgrade: websocket
-
-POST http://us1.sshws.net HTTP/1.1[crlf]Host: sparrow.cloudflare.com[crlf]Upgrade: websocket[crlf]User-Agent: Googlebot/2.1 (+http://www.google.com/bot.html)[crlf][crlf]" alt="iOS">
+                <!-- ۶. کارت OpenVPN -->
+                <div class="client-outer-card">
+                    <div class="client-inner-card">
+                        <a href="openvpn.html" class="card-header-link" target="_blank">
+                            <div class="logo-box">
+                                <img src="logo/openvpn.png" alt="OpenVPN Logo">
+                            </div>
+                            <div class="title-area">
+                                <h2>OpenVPN</h2>
+                                <p>ورود به پنل</p>
+                            </div>
+                        </a>
+                        <div class="platforms-grid">
+                            <a href="#" class="platform-btn">
+                                <div class="download-gif-box">
+                                    <img src="logo/download.gif" alt="Download Anim">
+                                </div>
+                                <img src="logo/android.png" alt="Android">
+                                <span>Android</span>
+                            </a>
+                            <a href="#" class="platform-btn">
+                                <div class="download-gif-box">
+                                    <img src="logo/download.gif" alt="Download Anim">
+                                </div>
+                                <img src="logo/app_store.png" alt="iOS">
                                 <span>iOS</span>
                             </a>
                             <a href="#" class="platform-btn">
@@ -805,9 +968,9 @@ POST http://us1.sshws.net HTTP/1.1[crlf]Host: sparrow.cloudflare.com[crlf]Upgrad
                 </div>
             </div>
 
-            <!-- دکمه درباره ما (بدون حاشیه و لبه) -->
+            <!-- دکمه درباره ما -->
             <div class="info-section">
-                <button class="about-btn" onclick="openAboutModal()">
+                <button class="about-btn" type="button" onclick="openAboutModal()">
                     <span>درباره ما</span>
                     <span>ℹ️</span>
                 </button>
@@ -834,36 +997,30 @@ POST http://us1.sshws.net HTTP/1.1[crlf]Host: sparrow.cloudflare.com[crlf]Upgrad
     </div>
 
     <!-- پنل پاپ‌آپ درباره ما -->
-    <div class="modal-overlay" id="aboutModal">
+    <div class="modal-overlay" id="aboutModal" onclick="handleBackdropClick(event)">
         <div class="modal-box">
             <div class="modal-header">
                 <h3>درباره FreenetVT</h3>
-                <button class="close-modal-btn" onclick="closeAboutModal()">&times;</button>
+                <button class="close-modal-btn" type="button" onclick="closeAboutModal()">&times;</button>
             </div>
             <div class="modal-content">
-                <p>پروژه FreenetVT با هدف ارائه دسترسی امن، سریع و پایدار به شبکه جهانی طراحی شده است. ما با پشتیبانی از پروتکل‌های مدرن و امن، تلاش می‌کنیم تجربه‌ای بی‌نقص و مطمئن را برای کاربران فراهم کنیم.</p>
+                <p>پنل مدیریت و دسترسی سریع به کلاینت‌ها و کانفیگ‌های FreenetVT با طراحی گلس‌مورفیسم روشن‌تر و ترکیب رنگ قرمز گیلاسی و آبی برقی.</p>
             </div>
         </div>
     </div>
 
-    <!-- دکمه شناور تلگرام -->
-    <a href="https://t.me" class="floating-telegram" target="_blank" aria-label="Telegram Support">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.67-.52.36-1 .54-1.43.53-.47-.01-1.37-.27-2.04-.49-.82-.27-1.47-.42-1.42-.88.03-.24.37-.49 1.02-.75 3.99-1.74 6.66-2.89 8.01-3.46 3.81-1.61 4.6-1.89 5.12-1.9.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.16-.04.24z"/></svg>
-    </a>
-
-    <!-- اسکریپت جاوااسکریپت برای باز و بسته کردن پاپ‌آپ درباره ما -->
     <script>
         function openAboutModal() {
-            document.getElementById('aboutModal').classList.add('active');
+            document.getElementById("aboutModal").classList.add("active");
         }
+
         function closeAboutModal() {
-            document.getElementById('aboutModal').classList.remove('active');
+            document.getElementById("aboutModal").classList.remove("active");
         }
-        // بستن با کلیک روی پس‌زمینه تاریک پشت پنجره
-        window.onclick = function(event) {
-            var modal = document.getElementById('aboutModal');
-            if (event.target == modal) {
-                modal.classList.remove('active');
+
+        function handleBackdropClick(event) {
+            if (event.target.id === "aboutModal") {
+                closeAboutModal();
             }
         }
     </script>

@@ -39,7 +39,7 @@
             font-family: Vazirmatn, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        html {
+        html, body {
             background-color: var(--bar-color);
         }
 
@@ -56,13 +56,13 @@
             color: var(--text-main);
             display: flex;
             justify-content: center;
-            padding: 36px 18px 44px;
+            padding: 36px 18px 80px;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* نوارهای ثابت بالا و پایین برای یکدستی رنگ در محدوده ایمن نمایشگر */
+        /* نوارهای ثابت بالا و پایین برای یکدستی رنگ */
         .chrome-edge-top,
         .chrome-edge-bottom {
             position: fixed;
@@ -86,7 +86,7 @@
             box-shadow: 0 -4px 18px rgba(24, 11, 22, 0.9);
         }
 
-        /* هاله‌های روشن و نرم پس‌زمینه */
+        /* هاله‌های روشن پس‌زمینه */
         .ambient-bg {
             position: fixed;
             inset: 0;
@@ -125,6 +125,169 @@
             100% { transform: translate(24px, 28px) scale(1.1); }
         }
 
+        /* صفحه بوت اولیه (۲۵ ثانیه) */
+        .boot-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 36px 20px 44px;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(251, 113, 133, 0.34) 0%, transparent 48%),
+                radial-gradient(circle at 80% 25%, rgba(56, 189, 248, 0.3) 0%, transparent 48%),
+                linear-gradient(160deg, rgba(28, 12, 26, 0.96), rgba(16, 10, 22, 0.98));
+            backdrop-filter: blur(18px);
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .boot-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .boot-top-banner {
+            text-align: center;
+            max-width: 460px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(56, 189, 248, 0.38);
+            border-radius: 20px;
+            padding: 14px 18px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 18px var(--electric-glow);
+        }
+
+        .boot-top-title {
+            font-size: 1rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ffe4e6, var(--accent-cherry), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+        }
+
+        .boot-top-desc {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
+
+        .boot-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+            max-width: 420px;
+        }
+
+        .boot-visual-box {
+            position: relative;
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            background: rgba(38, 18, 36, 0.72);
+            border: 2px solid var(--card-border-1);
+            box-shadow: 0 0 28px var(--accent-glow), 0 0 22px var(--electric-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            animation: bootPulseFloat 2.8s ease-in-out infinite alternate;
+        }
+
+        .boot-visual-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .boot-fallback-badge {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-cherry), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes bootPulseFloat {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-7px) scale(1.05); }
+        }
+
+        .boot-brand-name {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #ffe4e6, var(--accent-cherry), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .boot-subtext {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            line-height: 1.7;
+        }
+
+        .boot-spinner-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .boot-spinner {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 3.5px solid rgba(255, 255, 255, 0.14);
+            border-top-color: var(--accent-cherry);
+            border-right-color: var(--accent-blue);
+            box-shadow: 0 0 16px var(--electric-glow);
+            animation: spinRing 1.05s linear infinite;
+        }
+
+        @keyframes spinRing {
+            to { transform: rotate(360deg); }
+        }
+
+        .boot-caption {
+            font-size: 0.85rem;
+            color: #7dd3fc;
+            font-weight: 600;
+        }
+
+        .boot-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skip-boot-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(251, 113, 133, 0.45);
+            color: var(--text-main);
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .skip-boot-btn:hover {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: var(--accent-blue);
+            color: #7dd3fc;
+        }
+
+        /* محتوای اصلی پنل */
         .container {
             width: 100%;
             max-width: 520px;
@@ -133,7 +296,6 @@
             gap: 22px;
         }
 
-        /* باکس اصلی پنل با شفافیت روشن‌تر */
         .main-panel-box {
             background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.18);
@@ -150,7 +312,6 @@
             gap: 24px;
         }
 
-        /* ۱. هدر اصلی پنل */
         .panel-header {
             display: flex;
             flex-direction: column;
@@ -257,7 +418,6 @@
             margin-top: 6px;
         }
 
-        /* ساختار دو ستونه گرید کلاینت‌ها (۶ کارت) */
         .clients-grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -422,7 +582,6 @@
             text-align: center;
         }
 
-        /* بخش راهنما */
         .info-section {
             direction: rtl;
         }
@@ -474,7 +633,6 @@
             line-height: 1.5;
         }
 
-        /* دکمه درباره ما */
         .about-btn {
             display: flex;
             align-items: center;
@@ -498,7 +656,6 @@
             color: #7dd3fc;
         }
 
-        /* استایل پنجره پاپ‌آپ (Modal) درباره ما */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -571,39 +728,37 @@
             line-height: 1.7;
         }
 
-        /* شناور تلگرام */
-        .floating-telegram {
+        /* لینک شناور تلگرام */
+        .floating-telegram-link {
             position: fixed;
-            bottom: 24px;
-            left: 24px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.88), rgba(251, 113, 133, 0.82));
-            border: 1.5px solid rgba(255, 255, 255, 0.35);
-            border-radius: 50%;
-            display: flex;
+            bottom: 22px;
+            left: 22px;
+            z-index: 2500;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38bdf8, #fb7185);
             color: #ffffff;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), 0 0 18px var(--electric-glow);
-            transition: all 0.3s ease;
             text-decoration: none;
-            backdrop-filter: blur(10px);
-            z-index: 1000;
+            border: 2px solid rgba(255, 255, 255, 0.55);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), 0 0 20px var(--electric-glow);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
-        .floating-telegram svg {
-            width: 24px;
-            height: 24px;
+        .floating-telegram-link:hover {
+            transform: translateY(-4px) scale(1.06);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65), 0 0 24px var(--accent-glow);
+        }
+
+        .floating-telegram-link svg {
+            width: 25px;
+            height: 25px;
             fill: currentColor;
         }
 
-        .floating-telegram:hover {
-            transform: translateY(-4px) scale(1.06);
-            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55), 0 0 24px var(--accent-glow);
-        }
-
-        /* فوتر */
         .panel-footer {
             text-align: center;
             padding: 10px 0;
@@ -681,6 +836,33 @@
     </style>
 </head>
 <body>
+    <!-- صفحه بوت اولیه ۲۵ ثانیه‌ای -->
+    <div class="boot-screen" id="bootScreen">
+        <div class="boot-top-banner">
+            <div class="boot-top-title">معرفی پنل 𝑭𝒓𝒆𝒆𝒏𝒆𝒕𝒗𝒕 Panel</div>
+            <div class="boot-top-desc">دسترسی سریع و یکپارچه به کلاینت‌ها، ابزارهای اتصال و کانفیگ‌های به‌روز شبکه</div>
+        </div>
+
+        <div class="boot-center">
+            <div class="boot-visual-box">
+                <img src="YOUR_TELEGRAM_PROFILE_IMAGE.jpg" alt="Freenetvt Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="boot-fallback-badge" style="display:none;">FV</span>
+            </div>
+
+            <div class="boot-brand-name">Freenetvt</div>
+            <p class="boot-subtext">در حال آماده‌سازی محیط پنل و بارگذاری کلاینت‌ها برای اتصال سریع و پایدار...</p>
+
+            <div class="boot-spinner-wrap">
+                <div class="boot-spinner"></div>
+                <div class="boot-caption" id="bootTimerText">انتقال خودکار تا ۲۵ ثانیه...</div>
+            </div>
+        </div>
+
+        <div class="boot-bottom">
+            <button class="skip-boot-btn" type="button" onclick="enterMainPanel()">ورود سریع به پنل</button>
+        </div>
+    </div>
+
     <div class="chrome-edge-top" aria-hidden="true"></div>
     <div class="chrome-edge-bottom" aria-hidden="true"></div>
 
@@ -1030,7 +1212,7 @@
     </div>
 
     <!-- لینک شناور تلگرام -->
-    <a href="https://t.me/YOUR_CHANNEL_USERNAME" class="floating-telegram" target="_blank" aria-label="Telegram" title="کانال تلگرام">
+    <a id="floatingTelegramLink" href="https://t.me/freenetvt" class="floating-telegram-link" target="_blank" rel="noopener noreferrer" aria-label="کانال تلگرام Freenetvt" title="کانال تلگرام Freenetvt">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.48.96-.73 3.78-1.65 6.31-2.74 7.58-3.27 3.61-1.51 4.35-1.77 4.84-1.78.11 0 .35.03.5.16.13.1.17.24.18.33.02.07.02.21.01.33z"/></svg>
     </a>
 
@@ -1048,6 +1230,39 @@
     </div>
 
     <script>
+        let remainingBootSeconds = 25;
+        let bootIntervalId = null;
+
+        function updateBootTimerLabel() {
+            const label = document.getElementById("bootTimerText");
+            if (label) {
+                label.textContent = `انتقال خودکار تا ${remainingBootSeconds} ثانیه...`;
+            }
+        }
+
+        function enterMainPanel() {
+            if (bootIntervalId) {
+                clearInterval(bootIntervalId);
+                bootIntervalId = null;
+            }
+            const bootEl = document.getElementById("bootScreen");
+            if (bootEl) {
+                bootEl.classList.add("hidden");
+            }
+        }
+
+        function startBootSequence() {
+            updateBootTimerLabel();
+            bootIntervalId = setInterval(() => {
+                remainingBootSeconds -= 1;
+                if (remainingBootSeconds <= 0) {
+                    enterMainPanel();
+                } else {
+                    updateBootTimerLabel();
+                }
+            }, 1000);
+        }
+
         function openAboutModal() {
             document.getElementById("aboutModal").classList.add("active");
         }
@@ -1061,6 +1276,8 @@
                 closeAboutModal();
             }
         }
+
+        startBootSequence();
     </script>
 </body>
 </html>
